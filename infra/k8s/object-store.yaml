@@ -38,6 +38,14 @@ spec:
                   key: root-password
           ports:
             - containerPort: 9000
+          readinessProbe:
+            httpGet:
+              path: /minio/health/live
+              port: 9000
+          livenessProbe:
+            httpGet:
+              path: /minio/health/live
+              port: 9000
           resources:
             requests:
               cpu: "250m"
