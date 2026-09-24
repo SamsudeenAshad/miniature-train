@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  namespace: miniature-train
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+        - name: collector
+          image: otel/opentelemetry-collector-contrib:0.103.0
+          args: ["--config=/etc/otel/otel-collector.yaml"]
+          volumeMounts:
+            - name: config
+              mountPath: /etc/otel
+              readOnly: true
+          resources:
+            requests:
+              cpu: "250m"
+              memory: 256Mi
+            limits:
+              cpu: "1000m"
+              memory: 1Gi
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+      volumes:
+        - name: config
+          configMap:
+            name: otel-collector
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector
+  namespace: miniature-train
+data:
+  otel-collector.yaml: |
+    # managed in infra/telemetry/otel-collector.yaml; mirrored here at apply time
+    receivers: {otlp: null}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+  namespace: miniature-train
+spec:
+  selector:
+    app: otel-collector
+  ports:
+    - name: otlp-grpc
+      port: 4317
+    - name: otlp-http
+      port: 4318
