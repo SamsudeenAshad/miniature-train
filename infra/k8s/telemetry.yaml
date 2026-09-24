@@ -23,6 +23,14 @@ spec:
           args: ["--config.file=/etc/prometheus/prometheus.yaml"]
           ports:
             - containerPort: 9090
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: 9090
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: 9090
           volumeMounts:
             - name: config
               mountPath: /etc/prometheus
@@ -84,6 +92,14 @@ spec:
           image: grafana/grafana:11.3.0
           ports:
             - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
           volumeMounts:
             - name: dashboards
               mountPath: /etc/grafana/dashboards

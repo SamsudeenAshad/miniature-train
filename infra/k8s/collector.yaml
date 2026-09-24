@@ -25,6 +25,12 @@ spec:
             - name: config
               mountPath: /etc/otel
               readOnly: true
+          readinessProbe:
+            tcpSocket:
+              port: 4317
+          livenessProbe:
+            tcpSocket:
+              port: 4317
           resources:
             requests:
               cpu: "250m"
