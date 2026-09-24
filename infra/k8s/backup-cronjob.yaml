@@ -10,6 +10,7 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
+          automountServiceAccountToken: false
           containers:
             - name: backup
               image: miniature-train/backup:v0.3.0
