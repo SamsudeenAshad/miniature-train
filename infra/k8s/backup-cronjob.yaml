@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mt-backup
+  namespace: miniature-train
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: miniature-train/backup:v0.3.0
+              args: ["--rpo-hours=24", "--retain=30"]
+              resources:
+                requests:
+                  cpu: "250m"
+                  memory: 256Mi
