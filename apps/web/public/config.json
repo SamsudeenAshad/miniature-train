@@ -1,0 +1,4 @@
+{
+  "controlApiUrl": "/api/control",
+  "inferenceUrl": "/api/inference"
+}
