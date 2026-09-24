@@ -47,6 +47,12 @@ def live():
     return {"status": "alive"}
 
 
+@app.get("/health/ready")
+def ready():
+    loaded = _model is not None
+    return {"status": "ready" if loaded else "warming", "model_loaded": loaded}
+
+
 @app.post("/predict")
 def predict(body: PredictIn, x_request_id: str | None = Header(default=None)):
     predict_fn = _load("predict", "services/inference/predict.py").predict

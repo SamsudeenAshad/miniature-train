@@ -6,7 +6,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1] / "infra/k8s"
 WANT = {"prometheus", "grafana", "otel-collector", "alertmanager", "loki", "tempo",
-        "db", "object-store", "mlflow"}
+        "db", "object-store", "mlflow", "control-api", "inference"}
 
 
 def _deployments():
