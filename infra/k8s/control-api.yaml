@@ -13,9 +13,14 @@ spec:
       labels:
         app: control-api
     spec:
+      serviceAccountName: control-api
       containers:
         - name: api
           image: miniature-train/control-api:v0.1.0
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 8000
           readinessProbe:
