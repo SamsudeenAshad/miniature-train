@@ -3,6 +3,8 @@ kind: StatefulSet
 metadata:
   name: db
   namespace: miniature-train
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   serviceName: db
   replicas: 1
