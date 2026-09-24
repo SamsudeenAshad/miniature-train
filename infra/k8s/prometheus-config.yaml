@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus
+  namespace: miniature-train
+data:
+  prometheus.yaml: |
+    global:
+      scrape_interval: 30s
+      evaluation_interval: 30s
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets: [alertmanager:9093]
+    rule_files:
+      - /etc/prometheus/rules/*.yaml
+    scrape_configs:
+      - job_name: federate
+        honor_labels: true
+        static_configs:
+          - targets: [otel-collector:8889]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-rules
+  namespace: miniature-train
+data:
+  health.yaml: |
+    groups:
+      - name: miniature-train-health
+        rules:
+          - alert: HighErrorRate
+            expr: job:request_errors:ratio5m > 0.01
+            for: 3m
+          - alert: SevereErrorRate
+            expr: job:request_errors:ratio1m > 0.05
+            for: 1m
+          - alert: HighLatency
+            expr: histogram_quantile(0.95, job:request_duration:bucket5m) > 0.2
+            for: 3m
+          - alert: TelemetryStale
+            expr: time() - telemetry_last_seen_seconds > 120
+            for: 2m

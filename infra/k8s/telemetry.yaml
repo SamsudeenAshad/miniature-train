@@ -16,8 +16,16 @@ spec:
       containers:
         - name: prometheus
           image: prom/prometheus:v2.53.0
+          args: ["--config.file=/etc/prometheus/prometheus.yaml"]
           ports:
             - containerPort: 9090
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prometheus
+              readOnly: true
+            - name: rules
+              mountPath: /etc/prometheus/rules
+              readOnly: true
           resources:
             requests:
               cpu: "250m"
@@ -29,6 +37,13 @@ spec:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+      volumes:
+        - name: config
+          configMap:
+            name: prometheus
+        - name: rules
+          configMap:
+            name: prometheus-rules
 ---
 apiVersion: v1
 kind: Service
