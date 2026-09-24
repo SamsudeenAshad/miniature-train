@@ -1,0 +1,13 @@
+# Evidently adapter config (SRS 8.2/R13 slice). Pinned image; platform owns eligibility.
+version: v1
+image: evidently:v0.4.0
+reference:
+  snapshot: train-weeks-1-8
+window:
+  min_observations: 500
+  rolling_days: 3
+features: [orders, hour, on_promotion]
+thresholds:
+  mean_shift: 0.15
+missingness:
+  rule: separate
