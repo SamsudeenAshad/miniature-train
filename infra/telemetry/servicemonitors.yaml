@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: control-api
+  namespace: miniature-train
+spec:
+  selector:
+    matchLabels:
+      app: control-api
+  endpoints:
+    - port: http
+      interval: 30s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: inference
+  namespace: miniature-train
+spec:
+  selector:
+    matchLabels:
+      app: inference
+  endpoints:
+    - port: http
+      interval: 30s
