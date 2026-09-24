@@ -24,6 +24,12 @@ spec:
       steps:
         - setWeight: 5
         - pause: {duration: 5m}
+        - analysis:
+            templates:
+              - templateName: canary-guards
+            args:
+              - name: service
+                value: prediction-api
         - setWeight: 25
         - pause: {duration: 5m}
         - setWeight: 50
