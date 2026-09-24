@@ -14,6 +14,7 @@ spec:
       labels:
         app: tempo
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: tempo
           image: grafana/tempo:2.6.0

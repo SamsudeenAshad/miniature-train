@@ -13,6 +13,7 @@ spec:
       labels:
         app: inference
     spec:
+      automountServiceAccountToken: false
       serviceAccountName: inference
       containers:
         - name: server
