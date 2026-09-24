@@ -1,0 +1,8 @@
+# Pilot quotas (SRS 13.2). Enforced in WBS 4.1/8.2.
+version: v1
+concurrent_training_tasks: 2
+training_task_cpu: 2
+training_task_mem_gb: 4
+training_time_min: 30
+upload_mb: 250
+project_objects_gb: 20

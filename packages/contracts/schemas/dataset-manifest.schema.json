@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DatasetManifest",
+  "type": "object",
+  "required": ["generator", "seed", "rows", "series", "digest_sha256", "splits"],
+  "properties": {
+    "generator": {"type": "string"},
+    "seed": {"type": "integer"},
+    "rows": {"type": "integer"},
+    "series": {"type": "array", "items": {"type": "string"}},
+    "digest_sha256": {"type": "string"},
+    "splits": {"type": "object"}
+  }
+}

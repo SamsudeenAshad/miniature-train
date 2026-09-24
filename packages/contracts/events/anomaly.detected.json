@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "event_id": "evt_example_001",
+  "event_type": "anomaly.detected",
+  "project_id": "project_demo",
+  "environment": "staging",
+  "service": "prediction-api",
+  "occurred_at": "2026-09-24T10:00:00Z",
+  "ingested_at": "2026-09-24T10:00:12Z",
+  "correlation_id": "corr_example_001",
+  "payload": {
+    "window_start": "2026-09-24T09:59:00Z",
+    "window_end": "2026-09-24T10:00:00Z",
+    "detector_version": "detector_7",
+    "score": 0.81,
+    "threshold": 0.72,
+    "score_semantics": "normalized_anomaly_score_not_probability",
+    "evidence_ids": ["evidence_example_001"],
+    "telemetry_status": "complete"
+  }
+}

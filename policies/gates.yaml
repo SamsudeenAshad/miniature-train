@@ -1,0 +1,11 @@
+# Versioned model release gates (SRS 11.2). Enforced in WBS 4.3/5.2.
+version: v1
+required_evidence:
+  - data_contract_accepted
+  - training_provenance
+  - quality_slices_pass
+  - feature_parity_pass
+  - artifact_signature_trusted
+  - serving_health_pass
+  - rollback_target_compatible
+  - independent_approval

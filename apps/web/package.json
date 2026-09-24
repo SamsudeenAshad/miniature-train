@@ -1,0 +1,11 @@
+{
+  "name": "miniature-train-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo 'ui checks in WBS 9.x'"
+  }
+}

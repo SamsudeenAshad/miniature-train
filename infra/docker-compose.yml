@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  control-api:
+    build: ../services/control-api
+    environment:
+      - DATABASE_URL=postgresql://mt:mt@db:5432/mt
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=mt
+      - POSTGRES_PASSWORD=mt
+      - POSTGRES_DB=mt

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+# Node
+node_modules/
+dist/
+# Data / artifacts (generated, keep manifests)
+data/raw/
+data/processed/
+artifacts/
+*.csv
+!**/fixtures/*.csv
+# OS
+.DS_Store
+Thumbs.db
+# Secrets
+.env
+*.pem
+*.key

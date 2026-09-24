@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: miniature-train control API
+  version: 0.1.0
+  description: Skeleton per SRS 10.2. Exact schemas are implementation deliverables.
+servers:
+  - url: https://control.local/v1
+paths:
+  /health/live:
+    get:
+      summary: Process liveness
+      responses:
+        "200":
+          description: alive
+  /health/ready:
+    get:
+      summary: Readiness (deps checked, no sensitive details)
+      responses:
+        "200":
+          description: ready
+        "503":
+          description: dependency unavailable
+  /v1/projects:
+    post:
+      summary: Create an authorized project (FR-002)
+      responses:
+        "201":
+          description: project
+  /v1/projects/{project_id}/overview:
+    get:
+      summary: Permitted health and lifecycle summary with freshness
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: overview with freshness
+  /v1/projects/{project_id}/datasets:
+    post:
+      summary: Submit dataset object reference and digest for validation (FR-004)
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "202":
+          description: validation job
+  /v1/projects/{project_id}/pipeline-runs:
+    post:
+      summary: Submit a trusted training template (FR-007)
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "202":
+          description: run
+  /v1/projects/{project_id}/predictions:
+    post:
+      summary: Invoke the project's active serving route (FR-016)
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: prediction and version metadata
+  /v1/projects/{project_id}/incidents:
+    get:
+      summary: Filter incidents by environment, severity, owner, state (FR-026)
+      parameters:
+        - in: path
+          name: project_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: page

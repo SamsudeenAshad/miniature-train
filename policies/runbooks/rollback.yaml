@@ -1,0 +1,8 @@
+# Rollback runbook template (SRS 11.4, FR-027). Executor in WBS 8.3.
+version: v1
+name: rollback-release
+risk: medium
+allowed_targets: [staging, prod-like]
+preconditions: [previous_approved_digest, schema_compatible]
+verification: [router_state, model_version, workload_match]
+compensation: escalate_to_owner
