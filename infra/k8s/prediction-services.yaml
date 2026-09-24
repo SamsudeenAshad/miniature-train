@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prediction-api-stable
+  namespace: miniature-train
+spec:
+  selector:
+    app: inference
+    track: stable
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prediction-api-canary
+  namespace: miniature-train
+spec:
+  selector:
+    app: inference
+    track: canary
+  ports:
+    - port: 80
+      targetPort: 8000
