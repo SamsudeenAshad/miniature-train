@@ -24,6 +24,14 @@ spec:
                  "--default-artifact-root", "s3://miniature-train/mlflow"]
           ports:
             - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
           volumeMounts:
             - name: data
               mountPath: /data

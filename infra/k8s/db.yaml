@@ -23,6 +23,12 @@ spec:
           image: postgres:16.4
           ports:
             - containerPort: 5432
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "mt", "-d", "mt"]
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "mt", "-d", "mt"]
           env:
             - name: POSTGRES_DB
               value: mt
