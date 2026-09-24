@@ -13,6 +13,7 @@ spec:
       labels:
         app: control-api
     spec:
+      automountServiceAccountToken: false
       serviceAccountName: control-api
       containers:
         - name: api

@@ -13,6 +13,7 @@ spec:
       labels:
         app: mlflow
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: mlflow
           image: ghcr.io/mlflow/mlflow:v2.16.0
