@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+  namespace: miniature-train
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      labels:
+        app: alertmanager
+    spec:
+      containers:
+        - name: alertmanager
+          image: prom/alertmanager:v0.27.0
+          args: ["--config.file=/etc/alertmanager/alertmanager.yaml"]
+          ports:
+            - containerPort: 9093
+          volumeMounts:
+            - name: config
+              mountPath: /etc/alertmanager
+              readOnly: true
+          resources:
+            requests:
+              cpu: "100m"
+              memory: 128Mi
+            limits:
+              cpu: "500m"
+              memory: 512Mi
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+      volumes:
+        - name: config
+          configMap:
+            name: alertmanager
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager
+  namespace: miniature-train
+data:
+  alertmanager.yaml: |
+    # managed in infra/telemetry/alertmanager.yaml; mirrored here at apply time
+    route: {receiver: platform}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  namespace: miniature-train
+spec:
+  selector:
+    app: alertmanager
+  ports:
+    - port: 9093
