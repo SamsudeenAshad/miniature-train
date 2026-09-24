@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: training-pipeline
+  namespace: miniature-train
+spec:
+  activeDeadlineSeconds: 7200
+  templates:
+    - name: pipeline
+      dag:
+        tasks:
+          - name: validate
+            template: step
+            arguments:
+              parameters: [{name: stage, value: validate}]
+          - name: train
+            template: step
+            dependencies: [validate]
+            arguments:
+              parameters: [{name: stage, value: train}]
+          - name: evaluate
+            template: step
+            dependencies: [train]
+            arguments:
+              parameters: [{name: stage, value: evaluate}]
+          - name: register
+            template: step
+            dependencies: [evaluate]
+            arguments:
+              parameters: [{name: stage, value: register}]
+    - name: step
+      inputs:
+        parameters:
+          - name: stage
+      retryStrategy:
+        limit: 2
+      container:
+        image: miniature-train/training:v0.1.0
+        command: [python, -m, workers.training.runner]
+        args: ["--stage", "{{inputs.parameters.stage}}"]
+        resources:
+          requests:
+            cpu: "2"
+            memory: 4Gi
