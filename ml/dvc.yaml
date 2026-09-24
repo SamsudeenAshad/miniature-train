@@ -1,0 +1,13 @@
+stages:
+  generate:
+    cmd: python -m ml.data_generator --seed 42 --out data/demand.csv --manifest data/manifest.json
+    deps: [ml/data_generator.py]
+    outs: [data/demand.csv, data/manifest.json]
+  validate:
+    cmd: python -m ml.validate_cli --in data/demand.csv --out data/validation.report.json
+    deps: [data/demand.csv, ml/validate.py]
+    outs: [data/validation.report.json]
+  snapshot:
+    cmd: python -m ml.snapshot_cli --in data/demand.csv --out data/snapshot
+    deps: [data/demand.csv, ml/snapshot.py]
+    outs: [data/snapshot/snapshot.csv, data/snapshot/snapshot.manifest.json]
