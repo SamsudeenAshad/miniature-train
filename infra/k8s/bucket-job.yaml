@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: make-mlflow-bucket
+  namespace: miniature-train
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: mc
+          image: minio/mc:RELEASE.2024-08-17T01-14-57Z
+          command: ["/bin/sh", "-c"]
+          args: ["mc alias set store http://object-store:9000 $MINIO_USER $MINIO_PASSWORD && mc mb -p store/miniature-train/mlflow"]
+          env:
+            - name: MINIO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: object-store
+                  key: root-user
+            - name: MINIO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: object-store
+                  key: root-password
+          resources:
+            requests:
+              cpu: "100m"
+              memory: 128Mi
