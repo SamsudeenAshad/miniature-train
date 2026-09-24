@@ -17,6 +17,18 @@ spec:
       containers:
         - name: api
           image: miniature-train/control-api:v0.1.0
+          env:
+            - name: POSTGRES_HOST
+              value: db
+            - name: POSTGRES_DB
+              value: mt
+            - name: POSTGRES_USER
+              value: mt
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: control-api
+                  key: database-password
           securityContext:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
