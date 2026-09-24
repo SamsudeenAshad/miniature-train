@@ -1,12 +1,28 @@
 """Serving + promotion tests (FR-013/FR-016 slice)."""
 
+import importlib.util
+from pathlib import Path
+
 import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _load(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_release = _load("release", ROOT / "services/control-api/release.py")
+_predict = _load("predict", ROOT / "services/inference/predict.py")
+approve, promote, propose, rollback = _release.approve, _release.promote, _release.propose, _release.rollback
+predict = _predict.predict
 
 from ml.data_generator import generate_rows
 from ml.features import fit_preprocessing
 from ml.training import train_and_evaluate
-from services.control_api.release import approve, promote, propose, rollback
-from services.inference.predict import predict
 
 
 def _model():
