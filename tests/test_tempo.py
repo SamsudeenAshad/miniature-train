@@ -15,3 +15,8 @@ def test_traces_pipeline_end_to_end():
     docs = list(yaml.safe_load_all((K8S / "tempo.yaml").read_text()))
     svc = next(d for d in docs if d["kind"] == "Service")
     assert svc["metadata"]["name"] == "tempo"
+    sts = next(d for d in docs if d["kind"] == "StatefulSet")
+    spec = sts["spec"]["template"]["spec"]
+    mounted = {v["name"] for v in spec["containers"][0].get("volumeMounts", [])}
+    assert {"config", "data"} <= mounted
+    assert "config" in {v["name"] for v in spec["volumes"]}
