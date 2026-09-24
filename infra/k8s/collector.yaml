@@ -13,6 +13,9 @@ spec:
       labels:
         app: otel-collector
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       containers:
         - name: collector

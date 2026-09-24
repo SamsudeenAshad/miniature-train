@@ -13,6 +13,9 @@ spec:
       labels:
         app: control-api
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       serviceAccountName: control-api
       containers:

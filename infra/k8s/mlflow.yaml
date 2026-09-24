@@ -13,6 +13,9 @@ spec:
       labels:
         app: mlflow
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       containers:
         - name: mlflow

@@ -13,6 +13,9 @@ spec:
       labels:
         app: inference
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       serviceAccountName: inference
       containers:
