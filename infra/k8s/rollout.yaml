@@ -4,6 +4,14 @@ metadata:
   name: prediction-api
   namespace: miniature-train
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inference
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: inference
   strategy:
     canary:
       canaryService: prediction-api-canary
