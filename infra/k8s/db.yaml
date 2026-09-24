@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: miniature-train
+spec:
+  serviceName: db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.4
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: mt
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: control-api
+                  key: database-password
+                  optional: false
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              cpu: "250m"
+              memory: 512Mi
+            limits:
+              cpu: "1000m"
+              memory: 2Gi
+          securityContext:
+            runAsNonRoot: false
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 50Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: miniature-train
+spec:
+  selector:
+    app: db
+  ports:
+    - port: 5432
+  clusterIP: None
