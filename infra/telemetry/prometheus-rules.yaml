@@ -1,0 +1,23 @@
+groups:
+  - name: miniature-train-health
+    rules:
+      - alert: HighErrorRate
+        expr: job:request_errors:ratio5m > 0.01
+        for: 3m
+        labels:
+          severity: warning
+      - alert: SevereErrorRate
+        expr: job:request_errors:ratio1m > 0.05
+        for: 1m
+        labels:
+          severity: critical
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, job:request_duration:bucket5m) > 0.2
+        for: 3m
+        labels:
+          severity: warning
+      - alert: TelemetryStale
+        expr: time() - telemetry_last_seen_seconds > 120
+        for: 2m
+        labels:
+          severity: warning
