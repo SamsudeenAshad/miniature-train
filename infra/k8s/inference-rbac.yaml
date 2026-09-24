@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: inference
+  namespace: miniature-train
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: inference-reader
+  namespace: miniature-train
+rules:
+  - apiGroups: [""]
+    resources: [configmaps]
+    verbs: [get, list]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: inference-reader
+  namespace: miniature-train
+subjects:
+  - kind: ServiceAccount
+    name: inference
+roleRef:
+  kind: Role
+  name: inference-reader
+  apiGroup: rbac.authorization.k8s.io
