@@ -16,3 +16,6 @@ def test_alertmanager_wiring():
     assert dep["spec"]["template"]["spec"]["containers"][0]["image"] == "prom/alertmanager:v0.27.0"
     cfg = yaml.safe_load((TEL / "alertmanager.yaml").read_text())
     assert cfg["route"]["receiver"] == "platform"
+    cm = next(d for d in docs if d["kind"] == "ConfigMap")
+    embedded = yaml.safe_load(cm["data"]["alertmanager.yaml"])
+    assert embedded["route"]["receiver"] == cfg["route"]["receiver"]
