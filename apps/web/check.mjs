@@ -14,4 +14,10 @@ for (const st of ["loading", "empty", "denied", "disconnected", "partial", "stal
   if (!contract.states.includes(st)) throw new Error(`contract missing state ${st}`);
 }
 if (!contract.rules.approval_separate_from_execution) throw new Error("approval/execution must be separate");
+const config = readFileSync(new URL("./src/config.ts", import.meta.url), "utf-8");
+if (!config.includes("FALLBACK")) throw new Error("config must define safe fallback");
+const publicConfig = JSON.parse(readFileSync(new URL("./public/config.json", import.meta.url), "utf-8"));
+for (const k of ["controlApiUrl", "inferenceUrl"]) {
+  if (typeof publicConfig[k] !== "string") throw new Error(`public config missing ${k}`);
+}
 console.log("web checks ok");
