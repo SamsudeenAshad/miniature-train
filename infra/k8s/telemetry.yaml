@@ -13,6 +13,9 @@ spec:
       labels:
         app: prometheus
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       containers:
         - name: prometheus
@@ -72,6 +75,9 @@ spec:
       labels:
         app: grafana
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       containers:
         - name: grafana

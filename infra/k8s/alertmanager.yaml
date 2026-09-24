@@ -13,6 +13,9 @@ spec:
       labels:
         app: alertmanager
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       automountServiceAccountToken: false
       containers:
         - name: alertmanager
