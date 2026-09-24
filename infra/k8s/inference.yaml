@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference
+  namespace: miniature-train
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      serviceAccountName: control-api
+      containers:
+        - name: server
+          image: miniature-train/inference:v0.7.0
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
+          resources:
+            requests:
+              cpu: "500m"
+              memory: 512Mi
+            limits:
+              cpu: "1000m"
+              memory: 1Gi
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference
+  namespace: miniature-train
+spec:
+  selector:
+    app: inference
+  ports:
+    - port: 80
+      targetPort: 8000
