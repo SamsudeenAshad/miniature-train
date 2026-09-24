@@ -5,6 +5,7 @@ metadata:
   namespace: miniature-train
 spec:
   activeDeadlineSeconds: 7200
+  serviceAccountName: training
   templates:
     - name: pipeline
       dag:
