@@ -8,3 +8,14 @@ spec:
   selector:
     matchLabels:
       app: inference
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: control-api
+  namespace: miniature-train
+spec:
+  maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: control-api
