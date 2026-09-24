@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: prediction-api
+  namespace: miniature-train
+spec:
+  hosts:
+    - prediction-api
+  http:
+    - name: primary
+      route:
+        - destination:
+            host: prediction-api-stable
+        - destination:
+            host: prediction-api-canary
