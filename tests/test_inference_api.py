@@ -27,3 +27,10 @@ def test_predict_contract_over_http():
     assert body["prediction"] >= 0
     assert "model_version" in body and "feature_version" in body
     assert c.post("/predict", json={"series_id": "x"}).status_code == 422
+
+
+def test_readiness_reflects_model():
+    m = _load()
+    m._model = None
+    c = TestClient(m.app)
+    assert c.get("/health/ready").json()["status"] == "warming"
