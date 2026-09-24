@@ -3,7 +3,7 @@
 import importlib.util
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from pydantic import BaseModel
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -48,6 +48,6 @@ def live():
 
 
 @app.post("/predict")
-def predict(body: PredictIn, x_request_id: str | None = None):
+def predict(body: PredictIn, x_request_id: str | None = Header(default=None)):
     predict_fn = _load("predict", "services/inference/predict.py").predict
     return predict_fn(body.model_dump(), model(), request_id=x_request_id)
