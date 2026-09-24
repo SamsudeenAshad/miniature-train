@@ -18,6 +18,17 @@ spec:
         - name: minio
           image: minio/minio:RELEASE.2024-08-17T01-14-57Z
           args: ["server", "/data", "--console-address", ":9001"]
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: object-store
+                  key: root-user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: object-store
+                  key: root-password
           ports:
             - containerPort: 9000
           resources:
