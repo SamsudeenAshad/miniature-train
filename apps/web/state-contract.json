@@ -1,0 +1,12 @@
+{
+  "version": "web-state-1.0",
+  "required_context": ["project", "environment"],
+  "screens": ["overview", "data", "training", "runs", "model", "monitoring", "incident", "action", "audit", "settings"],
+  "states": ["loading", "empty", "denied", "disconnected", "partial", "stale", "healthy", "failed", "unknown"],
+  "rules": {
+    "approval_separate_from_execution": true,
+    "show_risk_target_before_approve": true,
+    "utc_available": true,
+    "no_probability_claim_for_scores": true
+  }
+}
