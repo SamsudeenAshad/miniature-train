@@ -61,6 +61,13 @@ spec:
           image: grafana/grafana:11.3.0
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - name: dashboards
+              mountPath: /etc/grafana/dashboards
+              readOnly: true
+            - name: provisioning
+              mountPath: /etc/grafana/provisioning/dashboards
+              readOnly: true
           resources:
             requests:
               cpu: "100m"
@@ -72,6 +79,19 @@ spec:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+      volumes:
+        - name: dashboards
+          configMap:
+            name: grafana-dashboards
+            items:
+              - key: operations.json
+                path: operations.json
+        - name: provisioning
+          configMap:
+            name: grafana-dashboards
+            items:
+              - key: provider.yaml
+                path: provider.yaml
 ---
 apiVersion: v1
 kind: Service
