@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: canary-guards
+  namespace: miniature-train
+spec:
+  args:
+    - name: service
+  metrics:
+    - name: error-rate
+      successCondition: result[0] <= 0.01
+      provider:
+        prometheus:
+          address: http://prometheus:9090
+          query: job:request_errors:ratio5m{service="{{args.service}}"}
+    - name: p95-latency
+      successCondition: result[0] <= 0.2
+      provider:
+        prometheus:
+          address: http://prometheus:9090
+          query: histogram_quantile(0.95, job:request_duration:bucket5m{service="{{args.service}}"})
