@@ -13,6 +13,8 @@ def test_rollout_steps_match_policy():
     assert weights == [5, 25, 50, 100]
     assert ro["spec"]["workloadRef"] == {"apiVersion": "apps/v1", "kind": "Deployment", "name": "inference"}
     assert ro["spec"]["selector"]["matchLabels"] == {"app": "inference"}
+    analyses = [s["analysis"] for s in ro["spec"]["strategy"]["canary"]["steps"] if "analysis" in s]
+    assert analyses[0]["templates"] == [{"templateName": "canary-guards"}]
     at = yaml.safe_load((ROOT / "analysistemplate.yaml").read_text())
     names = {m["name"] for m in at["spec"]["metrics"]}
     assert {"error-rate", "p95-latency"} <= names
