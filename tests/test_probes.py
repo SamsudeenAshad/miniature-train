@@ -11,7 +11,7 @@ WANT = {"prometheus", "grafana", "otel-collector", "alertmanager", "loki", "temp
 def _deployments():
     for f in sorted(ROOT.glob("*.yaml")):
         for d in yaml.safe_load_all(f.read_text()):
-            if d and d.get("kind") == "Deployment":
+            if d and d.get("kind") in ("Deployment", "StatefulSet"):
                 yield d["metadata"]["name"], d
 
 
