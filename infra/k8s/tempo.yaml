@@ -24,6 +24,12 @@ spec:
           args: ["-config.file=/etc/tempo/config.yaml"]
           ports:
             - containerPort: 3200
+          readinessProbe:
+            tcpSocket:
+              port: 3200
+          livenessProbe:
+            tcpSocket:
+              port: 3200
           volumeMounts:
             - name: config
               mountPath: /etc/tempo

@@ -23,6 +23,14 @@ spec:
           args: ["--config.file=/etc/alertmanager/alertmanager.yaml"]
           ports:
             - containerPort: 9093
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: 9093
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: 9093
           volumeMounts:
             - name: config
               mountPath: /etc/alertmanager
