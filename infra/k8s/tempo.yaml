@@ -20,6 +20,12 @@ spec:
           args: ["-config.file=/etc/tempo/config.yaml"]
           ports:
             - containerPort: 3200
+          volumeMounts:
+            - name: config
+              mountPath: /etc/tempo
+              readOnly: true
+            - name: data
+              mountPath: /var/tempo
           resources:
             requests:
               cpu: "250m"
@@ -31,6 +37,10 @@ spec:
             runAsNonRoot: true
             readOnlyRootFilesystem: false
             allowPrivilegeEscalation: false
+      volumes:
+        - name: config
+          configMap:
+            name: tempo
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -39,6 +49,20 @@ spec:
         resources:
           requests:
             storage: 20Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tempo
+  namespace: miniature-train
+data:
+  config.yaml: |
+    stream_over_http_enabled: true
+    storage:
+      trace:
+        backend: local
+        local:
+          path: /var/tempo/traces
 ---
 apiVersion: v1
 kind: Service
