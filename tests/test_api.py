@@ -20,8 +20,11 @@ def test_health_and_projects():
     m.reset()
     c = TestClient(m.app)
     assert c.get("/health/live").json() == {"status": "alive"}
-    r = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"})
+    assert c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}).status_code == 403
+    r = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"},
+               headers={"X-Subject": "admin-1", "X-Role": "project_admin"})
     assert r.status_code == 201
     pid = r.json()["id"]
-    assert c.get(f"/v1/projects/{pid}/overview").status_code == 200
-    assert c.get("/v1/projects/nope/overview").status_code == 404
+    assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "owner-1"}).status_code == 200
+    assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "stranger"}).status_code == 404
+    assert c.get("/v1/projects/nope/overview", headers={"X-Subject": "owner-1"}).status_code == 404
