@@ -1,0 +1,8 @@
+# Restart runbook template (SRS 11.4, FR-027). Executor in WBS 8.3.
+version: v1
+name: restart-replica
+risk: medium
+allowed_targets: [staging, prod-like]
+preconditions: [healthy_remaining_capacity, cooldown_clear]
+verification: [replica_ready, service_health]
+compensation: escalate_to_owner
