@@ -4,7 +4,7 @@
 
 | AT | Scenario | Tests |
 | --- | --- | --- |
-| AT-01 | Two-project authz, no self-approval | test_governance, test_api, test_migrations |
+| AT-01 | Two-project authz, no self-approval | test_governance, test_api, test_migrations, test_migrate |
 | AT-02 | Invalid datasets quarantined | test_validation |
 | AT-03 | Pinned rerun determinism | test_training, test_data_generator, test_snapshot |
 | AT-04 | Duplicate/quota/cancel/timeout | test_notify, test_lifecycle, test_schedule, test_contracts_api, test_quota_parity |
