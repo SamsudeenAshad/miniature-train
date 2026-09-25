@@ -29,3 +29,9 @@ def test_outbox_schema():
     sql = (ROOT / "004_outbox.sql").read_text()
     assert "CREATE TABLE outbox_events" in sql
     assert "JSONB" in sql and "delivered" in sql
+
+
+def test_incidents_schema():
+    sql = (ROOT / "005_incidents.sql").read_text()
+    assert "CREATE TABLE incidents" in sql
+    assert "version INTEGER" in sql and "timeline JSONB" in sql
