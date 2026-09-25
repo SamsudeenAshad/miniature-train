@@ -19,3 +19,25 @@ spec:
   selector:
     matchLabels:
       app: control-api
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: db
+  namespace: miniature-train
+spec:
+  maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: db
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: object-store
+  namespace: miniature-train
+spec:
+  maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: object-store
