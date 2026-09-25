@@ -41,3 +41,11 @@ def test_deployments_schema():
     sql = (ROOT / "006_deployments.sql").read_text()
     assert "CREATE TABLE deployments" in sql
     assert "artifact_digest" in sql and "previous_digest" in sql
+
+
+def test_actions_schema():
+    sql = (ROOT / "007_actions.sql").read_text()
+    assert "CREATE TABLE action_requests" in sql
+    assert "CREATE TABLE approvals" in sql
+    assert "CREATE TABLE executions" in sql
+    assert "plan_hash" in sql and "fencing_token" in sql
