@@ -43,7 +43,7 @@ test_limitrange, test_loki, test_minio_creds, test_mlflow, test_netpol_egress, t
 test_object_store, test_openapi_parity, test_outbox, test_pdb, test_platform_reqs,
 test_platform_status, test_pod_security, test_prediction_services, test_probes,
 test_prometheus_config, test_repo_layout, test_resourcequota, test_resources, test_rollout_manifest,
-test_runbook, test_runner, test_schedule, test_secret_refs, test_secrets_manifest, test_security,
+test_runbook, test_runbook_parity, test_runner, test_schedule, test_secret_refs, test_secrets_manifest, test_security,
 test_selectors, test_servicemonitors, test_snapshot, test_sync_waves, test_telemetry_deploy,
 test_telemetry_manifest, test_tempo, test_token_sweep, test_training_image, test_training_sa,
 test_tuning, test_virtualservice, test_volumes, test_web_image, test_workflow,
