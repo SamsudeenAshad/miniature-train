@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: inference
+        track: stable
     spec:
       securityContext:
         seccompProfile:
