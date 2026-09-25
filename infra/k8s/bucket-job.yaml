@@ -4,6 +4,8 @@ metadata:
   name: make-mlflow-bucket
   namespace: miniature-train
 spec:
+  backoffLimit: 3
+  ttlSecondsAfterFinished: 3600
   template:
     spec:
       securityContext:
