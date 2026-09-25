@@ -10,6 +10,7 @@ for (const s of ["overview", "incident", "action", "audit"]) {
   if (!state.includes(`"${s}"`)) throw new Error(`state missing screen ${s}`);
 }
 if (!app.includes("SCREENS")) throw new Error("App must render SCREENS");
+if (!app.includes("loadConfig")) throw new Error("App must use the backend config loader");
 for (const st of ["loading", "empty", "denied", "disconnected", "partial", "stale"]) {
   if (!contract.states.includes(st)) throw new Error(`contract missing state ${st}`);
 }
