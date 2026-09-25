@@ -35,3 +35,9 @@ def test_incidents_schema():
     sql = (ROOT / "005_incidents.sql").read_text()
     assert "CREATE TABLE incidents" in sql
     assert "version INTEGER" in sql and "timeline JSONB" in sql
+
+
+def test_deployments_schema():
+    sql = (ROOT / "006_deployments.sql").read_text()
+    assert "CREATE TABLE deployments" in sql
+    assert "artifact_digest" in sql and "previous_digest" in sql
