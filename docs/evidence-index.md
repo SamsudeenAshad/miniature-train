@@ -1,6 +1,6 @@
 # Release evidence index (WBS 1.4/11.1)
 
-Maintained per release. Current baseline: v0.9.0 (platform manifests + HTTP services + console).
+Maintained per release. Current baseline: v0.10.0 (enforced APIs, console wiring, fleet sweeps).
 
 - Git: `git log --format='%H %an %s'` — all steps by `samsudeenashad`, no co-author trailers.
 - Contracts: `packages/contracts/openapi-v1.yaml`, `events/`, `schemas/`.
