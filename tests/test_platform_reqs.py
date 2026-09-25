@@ -7,5 +7,6 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_controllers_documented():
     doc = (ROOT / "docs/platform-requirements.md").read_text()
-    for kind in ("Rollout", "WorkflowTemplate", "Application", "VirtualService", "ServiceMonitor", "ExternalSecret"):
+    for kind in ("Rollout", "AnalysisTemplate", "WorkflowTemplate", "Application", "VirtualService",
+                 "ServiceMonitor", "ExternalSecret", "ClusterSecretStore"):
         assert kind in doc
