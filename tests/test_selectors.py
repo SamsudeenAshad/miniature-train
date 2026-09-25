@@ -1,4 +1,4 @@
-"""Service selector tests (Step 114). Every selector matches at least one pod template."""
+"""Selector tests (Steps 114-115). Every selector matches at least one pod template."""
 
 from pathlib import Path
 
@@ -28,13 +28,22 @@ def test_selectors_match_pods():
                     bound_apps.add(lbs.get("app"))
     unmatched = []
     for fname, d in _docs():
-        if d.get("kind") != "Service":
+        kind = d.get("kind")
+        if kind == "Service":
+            sels = [(d["metadata"]["name"], d["spec"]["selector"])]
+        elif kind == "PodDisruptionBudget":
+            sels = [(d["metadata"]["name"], d["spec"]["selector"]["matchLabels"])]
+        elif kind == "ServiceMonitor":
+            sels = [(d["metadata"]["name"], d["spec"]["selector"]["matchLabels"])]
+        elif kind == "Rollout":
+            sels = [(d["metadata"]["name"], d["spec"]["selector"]["matchLabels"])]
+        else:
             continue
-        sel = d["spec"]["selector"]
+    for name, sel in sels:
         if sel.get("track") == "canary":
             # canary endpoints exist only during progression; the app must be rollout-managed
             if sel.get("app") not in bound_apps:
-                unmatched.append((fname, d["metadata"]["name"], sel))
+                unmatched.append((fname, name, sel))
         elif not any(all(lbs.get(k) == v for k, v in sel.items()) for _, lbs in labels):
-            unmatched.append((fname, d["metadata"]["name"], sel))
+            unmatched.append((fname, name, sel))
     assert not unmatched, unmatched
