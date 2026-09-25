@@ -58,3 +58,10 @@ def test_lineage_schema():
     assert "CREATE TABLE model_versions" in sql
     assert "REFERENCES dataset_snapshots(digest)" in sql
     assert "REFERENCES pipeline_runs(id)" in sql
+
+
+def test_predictions_schema():
+    sql = (ROOT / "009_predictions.sql").read_text()
+    assert "CREATE TABLE predictions" in sql
+    assert "CREATE TABLE label_revisions" in sql
+    assert "PRIMARY KEY (ctx, rev)" in sql
