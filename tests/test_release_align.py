@@ -2,6 +2,7 @@
 
 import json
 import re
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,3 +21,9 @@ def test_web_version_matches_release():
     pkg = json.loads((ROOT / "apps/web/package.json").read_text())
     major, minor, _ = _latest_release()
     assert pkg["version"] == f"{major}.{minor}.0"
+
+
+def test_py_version_matches_release():
+    proj = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+    major, minor, _ = _latest_release()
+    assert proj["version"] == f"{major}.{minor}.0"
