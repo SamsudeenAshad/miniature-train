@@ -13,14 +13,15 @@ from pydantic import BaseModel
 ROOT = Path(__file__).resolve().parents[3]
 
 
-def _load_authz():
-    spec = importlib.util.spec_from_file_location("authz", str(ROOT / "services/control-api/authz.py"))
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+def _load(mod: str, rel: str):
+    spec = importlib.util.spec_from_file_location(mod, str(ROOT / rel))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
 
 
-_authz = _load_authz()
+_authz = _load("authz", "services/control-api/authz.py")
+_idem = _load("apicontracts", "services/control-api/contracts.py")
 app = FastAPI(title="miniature-train control API", version="0.1.0")
 
 _projects: dict[str, dict] = {}
@@ -45,13 +46,25 @@ def ready():
 @app.post("/v1/projects", status_code=201)
 def create_project(body: ProjectIn, response: Response,
                    x_subject: str = Header(default=""),
-                   x_role: str = Header(default="")):
+                   x_role: str = Header(default=""),
+                   idempotency_key: str = Header(default="")):
     if x_role != "project_admin":
         response.status_code = status.HTTP_403_FORBIDDEN
         return {"code": "forbidden", "message": "project creation requires admin", "retryable": False}
+    if idempotency_key:
+        try:
+            prior = _idem.submit(idempotency_key, {"name": body.name, "owner": body.owner})
+            if prior.get("project_id"):
+                return _projects[prior["project_id"]]
+        except ValueError:
+            response.status_code = status.HTTP_409_CONFLICT
+            return {"code": "conflict", "message": "idempotency key reused with different payload",
+                    "retryable": False}
     pid = f"proj_{len(_projects) + 1}"
     _projects[pid] = {"id": pid, "name": body.name, "owner": body.owner}
     _members[pid] = {x_subject or body.owner: "project_admin", body.owner: "project_admin"}
+    if idempotency_key:
+        _idem._store[idempotency_key]["response"]["project_id"] = pid
     return _projects[pid]
 
 
@@ -67,3 +80,4 @@ def overview(project_id: str, response: Response, x_subject: str = Header(defaul
 def reset() -> None:
     _projects.clear()
     _members.clear()
+    _idem.reset()
