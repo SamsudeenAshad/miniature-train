@@ -17,3 +17,9 @@ def test_idempotency_schema():
     sql = (ROOT / "002_idempotency.sql").read_text()
     assert "CREATE TABLE idempotency_keys" in sql
     assert "PRIMARY KEY" in sql and "digest" in sql
+
+
+def test_audit_schema():
+    sql = (ROOT / "003_audit.sql").read_text()
+    assert "CREATE TABLE audit_events" in sql
+    assert "prev_digest" in sql and "UNIQUE" in sql
