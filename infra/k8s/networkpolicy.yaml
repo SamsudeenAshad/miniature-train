@@ -21,6 +21,18 @@ spec:
         - port: 53
           protocol: UDP
     - to:
-        - podSelector:
-            matchLabels:
-              app: control-api
+        - podSelector: {}
+      ports:
+        - port: 80
+        - port: 5432
+        - port: 9000
+        - port: 5000
+        - port: 9090
+        - port: 3000
+        - port: 3100
+        - port: 3200
+        - port: 4317
+        - port: 4318
+        - port: 8000
+        - port: 8080
+        - port: 9093
