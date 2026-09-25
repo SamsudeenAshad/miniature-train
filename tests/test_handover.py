@@ -11,6 +11,9 @@ REQUIRED_DOCS = ["docs/overview.md", "docs/operator-guide.md", "docs/acceptance-
 def test_handover_docs_present():
     missing = [d for d in REQUIRED_DOCS if not (ROOT / d).exists()]
     assert not missing, missing
+    index = (ROOT / "docs/evidence-index.md").read_text()
+    for path in ("infra/k8s/", "apps/web/", "docs/releases/", "infra/workflows/"):
+        assert path in index, path
 
 
 def test_readme_documents_verification_command():
