@@ -22,6 +22,11 @@ spec:
           image: miniature-train/console:v0.8.0
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: runtime-config
+              mountPath: /usr/share/nginx/html/config.json
+              subPath: config.json
+              readOnly: true
           readinessProbe:
             httpGet:
               path: /
@@ -41,6 +46,13 @@ spec:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+      volumes:
+        - name: runtime-config
+          configMap:
+            name: console-config
+            items:
+              - key: config.json
+                path: config.json
 ---
 apiVersion: v1
 kind: Service

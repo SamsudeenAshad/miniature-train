@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: console-config
+  namespace: miniature-train
+data:
+  config.json: |
+    {
+      "controlApiUrl": "/api/control",
+      "inferenceUrl": "/api/inference"
+    }
