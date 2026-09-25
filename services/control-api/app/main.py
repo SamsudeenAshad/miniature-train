@@ -22,10 +22,12 @@ def _load(mod: str, rel: str):
 
 _authz = _load("authz", "services/control-api/authz.py")
 _idem = _load("apicontracts", "services/control-api/contracts.py")
+_store_mod = _load("store", "services/control-api/app/store.py")
 app = FastAPI(title="miniature-train control API", version="0.1.0")
 
-_projects: dict[str, dict] = {}
-_members: dict[str, dict[str, str]] = {}
+_store = _store_mod.MemoryStore()
+_projects = _store.projects
+_members = _store.members
 
 
 class ProjectIn(BaseModel):
@@ -78,6 +80,5 @@ def overview(project_id: str, response: Response, x_subject: str = Header(defaul
 
 
 def reset() -> None:
-    _projects.clear()
-    _members.clear()
+    _store.reset()
     _idem.reset()
