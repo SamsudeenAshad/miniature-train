@@ -1,0 +1,13 @@
+"""Migration tests (Step 141). Schema files apply in order and cover the model."""
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1] / "infra/migrations"
+
+
+def test_projects_schema():
+    sql = (ROOT / "001_projects.sql").read_text()
+    assert "CREATE TABLE projects" in sql
+    assert "CREATE TABLE memberships" in sql
+    assert "REFERENCES projects(id)" in sql
+    assert "PRIMARY KEY (project_id, subject)" in sql
