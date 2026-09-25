@@ -28,3 +28,15 @@ def test_health_and_projects():
     assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "owner-1"}).status_code == 200
     assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "stranger"}).status_code == 404
     assert c.get("/v1/projects/nope/overview", headers={"X-Subject": "owner-1"}).status_code == 404
+
+
+def test_project_idempotency():
+    m = _load()
+    m.reset()
+    c = TestClient(m.app)
+    h = {"X-Subject": "admin-1", "X-Role": "project_admin", "Idempotency-Key": "k-1"}
+    r1 = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}, headers=h)
+    r2 = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}, headers=h)
+    assert r1.json()["id"] == r2.json()["id"]
+    r3 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"}, headers=h)
+    assert r3.status_code == 409
