@@ -7,7 +7,7 @@
 | AT-01 | Two-project authz, no self-approval | test_governance, test_api |
 | AT-02 | Invalid datasets quarantined | test_validation |
 | AT-03 | Pinned rerun determinism | test_training, test_data_generator, test_snapshot |
-| AT-04 | Duplicate/quota/cancel/timeout | test_notify, test_lifecycle, test_schedule, test_contracts_api |
+| AT-04 | Duplicate/quota/cancel/timeout | test_notify, test_lifecycle, test_schedule, test_contracts_api, test_quota_parity |
 | AT-05 | Quality gates block | test_training, test_cards |
 | AT-06 | Alias pin, artifact trust | test_training, test_provenance, test_artifacts (in test_tuning) |
 | AT-07 | Feature parity, input validation | test_features, test_serving, test_inference_api, test_labels |
