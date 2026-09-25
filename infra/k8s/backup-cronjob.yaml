@@ -16,7 +16,7 @@ spec:
           automountServiceAccountToken: false
           containers:
             - name: backup
-              image: miniature-train/backup:v0.3.0
+              image: miniature-train/backup:v0.8.0
               args: ["--rpo-hours=24", "--retain=30"]
               resources:
                 requests:
