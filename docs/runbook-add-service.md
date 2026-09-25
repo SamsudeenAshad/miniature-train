@@ -9,7 +9,8 @@
 5. NetworkPolicy egress: add the Service port or the sweep fails.
 6. Stateful data syncs on wave `0` via `sync-wave` annotation; apps default to wave `1`.
 7. Disruption budgets: replicas get `minAvailable`, singletons get `maxUnavailable: 0`.
-6. Image built from `infra/docker/`; first-party tags advance uniformly.
-7. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
+8. New tables ship as sequenced migrations in `infra/migrations/` (gapless numbering tested).
+9. Image built from `infra/docker/`; first-party tags advance uniformly.
+10. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
 
 Run `python -m pytest -q` — the fleet sweeps catch every missed touchpoint.
