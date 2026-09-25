@@ -16,3 +16,9 @@ def test_pending_in_filename_order(tmp_path):
 
 def test_real_dir_has_sequenced_start():
     assert pending(ROOT, set())[0].name == "001_projects.sql"
+
+
+def test_numbering_gapless():
+    names = [p.name for p in pending(ROOT, set())]
+    numbers = [int(n.split("_")[0]) for n in names]
+    assert numbers == list(range(1, len(numbers) + 1))
