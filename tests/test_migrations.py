@@ -65,3 +65,10 @@ def test_predictions_schema():
     assert "CREATE TABLE predictions" in sql
     assert "CREATE TABLE label_revisions" in sql
     assert "PRIMARY KEY (ctx, rev)" in sql
+
+
+def test_aiops_schema():
+    sql = (ROOT / "010_aiops.sql").read_text()
+    assert "CREATE TABLE anomalies" in sql
+    assert "CREATE TABLE hypotheses" in sql
+    assert "REFERENCES incidents(id)" in sql
