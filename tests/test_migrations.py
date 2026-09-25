@@ -23,3 +23,9 @@ def test_audit_schema():
     sql = (ROOT / "003_audit.sql").read_text()
     assert "CREATE TABLE audit_events" in sql
     assert "prev_digest" in sql and "UNIQUE" in sql
+
+
+def test_outbox_schema():
+    sql = (ROOT / "004_outbox.sql").read_text()
+    assert "CREATE TABLE outbox_events" in sql
+    assert "JSONB" in sql and "delivered" in sql
