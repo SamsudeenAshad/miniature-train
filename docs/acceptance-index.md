@@ -49,4 +49,4 @@ test_telemetry_manifest, test_tempo, test_token_sweep, test_training_image, test
 test_tuning, test_virtualservice, test_volumes, test_web_image, test_workflow,
 test_cards, test_evidently, test_harness, test_iforest, test_provenance, test_api, test_contracts_api,
 test_inference_api, test_labels, test_console, test_transfer, test_modelcards, test_dod,
-test_acceptance, test_architecture, test_handover, test_acceptance_coverage
+test_acceptance, test_architecture, test_handover, test_acceptance_coverage, test_release_align
