@@ -7,6 +7,7 @@
 4. Secrets only by reference (`test_secret_refs.py`); ConfigMaps must exist
    (`test_configmap_refs.py`); selectors must resolve (`test_selectors.py`).
 5. NetworkPolicy egress: add the Service port or the sweep fails.
+6. Stateful data syncs on wave `0` via `sync-wave` annotation; apps default to wave `1`.
 6. Image built from `infra/docker/`; first-party tags advance uniformly.
 7. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
 
