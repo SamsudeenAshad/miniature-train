@@ -49,3 +49,12 @@ def test_actions_schema():
     assert "CREATE TABLE approvals" in sql
     assert "CREATE TABLE executions" in sql
     assert "plan_hash" in sql and "fencing_token" in sql
+
+
+def test_lineage_schema():
+    sql = (ROOT / "008_lineage.sql").read_text()
+    assert "CREATE TABLE dataset_snapshots" in sql
+    assert "CREATE TABLE pipeline_runs" in sql
+    assert "CREATE TABLE model_versions" in sql
+    assert "REFERENCES dataset_snapshots(digest)" in sql
+    assert "REFERENCES pipeline_runs(id)" in sql
