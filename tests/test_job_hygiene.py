@@ -11,3 +11,4 @@ def test_job_bounds():
     job = next(d for d in yaml.safe_load_all((ROOT / "bucket-job.yaml").read_text()) if d.get("kind") == "Job")
     assert job["spec"]["backoffLimit"] == 3
     assert job["spec"]["ttlSecondsAfterFinished"] == 3600
+    assert job["spec"]["activeDeadlineSeconds"] == 300
