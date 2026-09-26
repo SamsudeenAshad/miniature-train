@@ -1,6 +1,6 @@
-# Risk review — post v0.13.0 (SRS 18.1)
+# Risk review — post v0.14.0 (SRS 18.1)
 
-| ID | Risk | Status after v0.13.0 |
+| ID | Risk | Status after v0.14.0 |
 | --- | --- | --- |
 | RISK-01 | Infra sprawl delays ML/AIOps | controlled: platform manifests complete, fleet sweeps guard drift |
 | RISK-02 | Synthetic telemetry unrealistic | open: seeds/load varied; real-trace option pending |
@@ -18,7 +18,7 @@
 | RISK-14 | Specialist bottleneck | noted: ML/platform near limits |
 | RISK-15 | Copilot leak/hallucination | n/a: R3 excluded |
 
-New since v0.12.0: migration chain 001–010 complete with parity tests; storage seam
-isolates routes for the future Postgres driver; local-dev parity via compose.
+New since v0.13.0: disruption budgets fleet-wide, workflow hardening, sweeps cover
+workflows, compose parity, supply chain clean. Cluster apply remains the open proof.
 In-memory API stores still pending a driver; schema is ready and tested.
 Reserve: 48 PD planned; consumed ~0 (skeleton within base). All spend recorded in change-control.
