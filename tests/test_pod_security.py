@@ -1,10 +1,11 @@
-"""Pod security tests (Step 94). Restricted-standard seccomp on every pod spec."""
+"""Pod security tests (Steps 94, 178). Restricted-standard seccomp on every pod spec."""
 
 from pathlib import Path
 
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1] / "infra/k8s"
+WORKFLOWS = Path(__file__).resolve().parents[1] / "infra/workflows"
 
 
 def _pods():
@@ -27,3 +28,8 @@ def test_seccomp_everywhere():
     for fname, name, pod in pods:
         sc = pod.get("securityContext", {})
         assert sc.get("seccompProfile", {}).get("type") == "RuntimeDefault", f"{fname} {name}"
+    for f in sorted(WORKFLOWS.glob("*.yaml")):
+        for d in yaml.safe_load_all(f.read_text()):
+            if d and d.get("kind") == "WorkflowTemplate":
+                sc = d["spec"].get("podSecurityContext", {})
+                assert sc.get("seccompProfile", {}).get("type") == "RuntimeDefault", f.name
