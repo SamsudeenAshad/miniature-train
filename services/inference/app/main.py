@@ -3,12 +3,24 @@
 import importlib.util
 from pathlib import Path
 
-from fastapi import FastAPI, Header
+from fastapi import FastAPI, Header, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 ROOT = Path(__file__).resolve().parents[3]
 
 app = FastAPI(title="miniature-train inference", version="0.1.0")
+
+
+@app.exception_handler(RequestValidationError)
+def validation_envelope(request: Request, exc: RequestValidationError):
+    return JSONResponse(status_code=422, content={
+        "code": "unprocessable",
+        "message": "schema or business-rule validation failed",
+        "request_id": request.headers.get("x-request-id", ""),
+        "retryable": False,
+    })
 
 
 def _load(name: str, rel: str):
