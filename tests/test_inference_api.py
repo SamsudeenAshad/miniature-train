@@ -27,6 +27,8 @@ def test_predict_contract_over_http():
     assert body["prediction"] >= 0
     assert "model_version" in body and "feature_version" in body
     assert c.post("/predict", json={"series_id": "x"}).status_code == 422
+    bad = c.post("/predict", json={"series_id": "x"})
+    assert bad.json()["code"] == "unprocessable"
 
 
 def test_readiness_reflects_model():
