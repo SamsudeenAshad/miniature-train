@@ -65,3 +65,6 @@ def test_missing_identity_headers_denied():
     c = TestClient(m.app)
     assert c.get("/v1/projects/proj_9/overview").status_code == 404
     assert c.post("/v1/projects", json={"name": "demo", "owner": "o"}).status_code == 403
+    non_admin = {"X-Subject": "op-1", "X-Role": "operator"}
+    assert c.post("/v1/projects", json={"name": "demo", "owner": "o"},
+                  headers=non_admin).status_code == 403
