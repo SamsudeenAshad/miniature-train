@@ -24,6 +24,9 @@ def test_compose_consistent():
     for svc in ("control-api", "inference"):
         assert "healthcheck" in doc["services"][svc], svc
     assert "healthcheck" in doc["services"]["web"]
+    deps = doc["services"]["web"]["depends_on"]
+    assert deps["control-api"]["condition"] == "service_healthy"
+    assert deps["inference"]["condition"] == "service_healthy"
 
 
 def test_proxy_confs_agree_on_routes():
