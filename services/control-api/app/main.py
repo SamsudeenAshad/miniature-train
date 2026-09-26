@@ -77,7 +77,7 @@ def overview(project_id: str, response: Response, x_subject: str = Header(defaul
     if not role or not _authz.can(role, "read", project_id, project_id):
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"code": "not_found", "message": "project absent or concealed", "retryable": False}
-    return {"project": _projects[project_id], "freshness": "current"}
+    return {"project": _projects[project_id], "freshness": "current", "backend": _store.backend}
 
 
 def reset() -> None:

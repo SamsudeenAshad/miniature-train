@@ -25,7 +25,8 @@ def test_health_and_projects():
                headers={"X-Subject": "admin-1", "X-Role": "project_admin"})
     assert r.status_code == 201
     pid = r.json()["id"]
-    assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "owner-1"}).status_code == 200
+    body = c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "owner-1"}).json()
+    assert body["freshness"] == "current" and body["backend"] == "memory"
     assert c.get(f"/v1/projects/{pid}/overview", headers={"X-Subject": "stranger"}).status_code == 404
     assert c.get("/v1/projects/nope/overview", headers={"X-Subject": "owner-1"}).status_code == 404
 
