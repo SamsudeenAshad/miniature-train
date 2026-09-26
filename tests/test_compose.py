@@ -21,6 +21,8 @@ def test_compose_consistent():
     assert web["ports"] == ["8080:8080"]
     mounted = " ".join(str(v) for v in web.get("volumes", []))
     assert "nginx.compose.conf" in mounted
+    for svc in ("control-api", "inference"):
+        assert "healthcheck" in doc["services"][svc], svc
 
 
 def test_proxy_confs_agree_on_routes():
