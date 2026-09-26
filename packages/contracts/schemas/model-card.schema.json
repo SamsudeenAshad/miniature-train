@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ModelCard",
+  "type": "object",
+  "required": ["run_id", "dataset_digest", "feature_version", "metrics", "owner",
+               "validation_status", "generated_at", "digest"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "dataset_digest": {"type": "string"},
+    "feature_version": {"type": "string"},
+    "metrics": {"type": "object"},
+    "owner": {"type": "string"},
+    "validation_status": {"type": "string"},
+    "digest": {"type": "string", "minLength": 64, "maxLength": 64}
+  }
+}
