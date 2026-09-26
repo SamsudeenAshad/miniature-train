@@ -34,3 +34,8 @@ def test_readiness_reflects_model():
     m._model = None
     c = TestClient(m.app)
     assert c.get("/health/ready").json()["status"] == "warming"
+
+
+def test_predict_fn_cached():
+    m = _load()
+    assert m._predict_fn() is m._predict_fn()

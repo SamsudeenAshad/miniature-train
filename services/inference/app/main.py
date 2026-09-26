@@ -28,6 +28,14 @@ class PredictIn(BaseModel):
 
 
 _model = None
+_predict_cached = None
+
+
+def _predict_fn():
+    global _predict_cached
+    if _predict_cached is None:
+        _predict_cached = _load("predict", "services/inference/predict.py").predict
+    return _predict_cached
 
 
 def model():
@@ -55,5 +63,4 @@ def ready():
 
 @app.post("/predict")
 def predict(body: PredictIn, x_request_id: str | None = Header(default=None)):
-    predict_fn = _load("predict", "services/inference/predict.py").predict
-    return predict_fn(body.model_dump(), model(), request_id=x_request_id)
+    return _predict_fn()(body.model_dump(), model(), request_id=x_request_id)
