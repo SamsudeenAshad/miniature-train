@@ -9,4 +9,4 @@
 | Console/acceptance | frontend/QA | state contract + acceptance index |
 
 Approved environments: local dev, shared eval (pilot). No production adoption without separate readiness review.
-Secret handoff: references only (`control-api` ExternalSecret); values never in repo.
+Secret handoff: references only (`control-api` and `object-store` ExternalSecrets); values never in repo.
