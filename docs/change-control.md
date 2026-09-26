@@ -27,5 +27,6 @@ Each entry: ID, proposer, reason, affected requirements, WBS/effort, security/da
 | CR-021 | 2026-09-26 | v0.19.0: local stack + API polish (compose health, envelopes, contracts) | accepted, tagged v0.19.0 |
 | CR-022 | 2026-09-26 | v0.20.0: correctness + docs (envelopes, parity, refreshed guides) | accepted, tagged v0.20.0 |
 | CR-023 | 2026-09-26 | v0.21.0: proven invocations (every command runs in tests) | accepted, tagged v0.21.0 |
+| CR-024 | 2026-09-26 | v0.22.0: follow-through (images, governance, bookkeeping current) | accepted, tagged v0.22.0 |
 
 Baseline is not rewritten to disguise failed experiments; new features require new CR rows.
