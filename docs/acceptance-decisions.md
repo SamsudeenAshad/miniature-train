@@ -13,5 +13,6 @@
 | v0.18.0 seams + unification | pilot-accepted with limitations | 2026-09-26 | policy-sourced bounds; version parity; cluster pending |
 | v0.19.0 local stack + polish | pilot-accepted with limitations | 2026-09-26 | compose healthy ordering; envelopes; cluster pending |
 | v0.20.0 correctness + docs | pilot-accepted with limitations | 2026-09-26 | envelopes both services; parity enforced; cluster pending |
+| v0.21.0 proven invocations | pilot-accepted with limitations | 2026-09-26 | commands executed in tests; cluster pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
