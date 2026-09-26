@@ -45,6 +45,9 @@ def test_project_idempotency():
     assert r1.headers["location"] == r2.headers["location"] == f"/v1/projects/{r1.json()['id']}"
     r3 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"}, headers=h)
     assert r3.status_code == 409
+    r4 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"},
+                headers={"Idempotency-Key": "k-1"})
+    assert r4.status_code == 403
 
 
 def test_validation_error_envelope():
