@@ -7,6 +7,8 @@
   with `git merge --no-ff` after green verification.
 - New `feat/*` or `fix/*` branches only for parallel or risky work that must stay
   isolated; delete them (local and remote) right after merging.
+- After any direct-to-main commit (releases), merge `main` back into `dev/rolling`
+  before the next step so the branches can't drift.
 - Keep the branch list short: `main`, `dev/rolling`, and at most one active topic.
 
 ## Merging to main
