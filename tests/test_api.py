@@ -20,6 +20,7 @@ def test_health_and_projects():
     m.reset()
     c = TestClient(m.app)
     assert c.get("/health/live").json() == {"status": "alive"}
+    assert c.get("/health/ready").json() == {"status": "ready", "store": "memory"}
     assert c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}).status_code == 403
     r = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"},
                headers={"X-Subject": "admin-1", "X-Role": "project_admin"})
