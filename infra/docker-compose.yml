@@ -1,12 +1,25 @@
-version: "3.8"
+# Local development only (SRS 13.1). Secrets come from the environment, never this file.
 services:
   control-api:
-    build: ../services/control-api
+    build:
+      context: ..
+      dockerfile: infra/docker/control-api.Dockerfile
     environment:
-      - DATABASE_URL=postgresql://mt:mt@db:5432/mt
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=mt
+      - POSTGRES_USER=mt
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    ports:
+      - "8000:8000"
+  inference:
+    build:
+      context: ..
+      dockerfile: infra/docker/inference.Dockerfile
+    ports:
+      - "8001:8000"
   db:
-    image: postgres:16
+    image: postgres:16.4
     environment:
       - POSTGRES_USER=mt
-      - POSTGRES_PASSWORD=mt
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
       - POSTGRES_DB=mt
