@@ -11,7 +11,8 @@ from __future__ import annotations
 
 import statistics
 
-FAULT_FAMILIES = ("cpu", "memory", "latency", "errors", "faulty_deploy")
+from workers.aiops.harness import FAMILIES as FAULT_FAMILIES
+
 MATCH_GRACE_S = 180
 
 
