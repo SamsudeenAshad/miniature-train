@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: nginx
-          image: miniature-train/console:v0.22.0
+          image: miniature-train/console:v0.23.0
           ports:
             - containerPort: 8080
           volumeMounts:
