@@ -9,8 +9,7 @@ venv/
 node_modules/
 dist/
 # Data / artifacts (generated, keep manifests)
-data/raw/
-data/processed/
+data/
 artifacts/
 *.csv
 !**/fixtures/*.csv

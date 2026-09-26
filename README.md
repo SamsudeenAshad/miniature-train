@@ -31,6 +31,8 @@ pip install -r requirements.txt
 python -m pytest -q
 python -m pip_audit -r requirements.txt
 python -m ml.data_generator --seed 42 --out data/demand.csv --manifest data/manifest.json
+python -m ml.validate_cli --in data/demand.csv --out data/validation.report.json
+python -m ml.snapshot_cli --in data/demand.csv --out data/snapshot
 ```
 
 ```powershell
