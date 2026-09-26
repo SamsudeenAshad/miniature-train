@@ -1,7 +1,14 @@
 """Observability tests (FR-017/018/019/021 slice)."""
 
+from pathlib import Path
+
+import yaml
+
+from workers.aiops import drift as drift_mod
 from workers.aiops.drift import drift_report, retraining_eligible
 from workers.aiops.telemetry import redact, telemetry_health
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_redaction():
@@ -29,3 +36,9 @@ def test_drift_and_proposal_gates():
     assert ok["eligible"] is True and ok["auto_promote"] is False
     cool = retraining_eligible("drift", joined_labels=600, coverage=0.9, hours_since_last=2)
     assert cool["eligible"] is False
+
+
+def test_drift_bounds_come_from_adapter():
+    cfg = yaml.safe_load((ROOT / "workers/aiops/evidently.yaml").read_text())
+    assert drift_mod.MIN_OBS == cfg["window"]["min_observations"] == 500
+    assert drift_mod.SHIFT_THRESHOLD == cfg["thresholds"]["mean_shift"] == 0.15
