@@ -2,5 +2,5 @@ pytest==9.0.3
 PyYAML==6.0.3
 fastapi==0.141.1
 starlette==1.7.0
-httpx==0.28.1
+httpx2==2.13.1
 uvicorn==0.34.0
