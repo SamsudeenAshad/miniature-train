@@ -9,3 +9,6 @@ required_evidence:
   - serving_health_pass
   - rollback_target_compatible
   - independent_approval
+quality:
+  min_improvement: 0.10
+  max_series_worsen: 0.05

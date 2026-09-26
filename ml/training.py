@@ -5,11 +5,15 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from pathlib import Path
+
+import yaml
 
 from .data_generator import SERIES_IDS
 from .models import fit_candidate, predict_candidate, seasonal_naive
 
 MODEL_VERSION = "demand-candidate-1.0"
+_QUALITY = yaml.safe_load((Path(__file__).resolve().parents[1] / "policies/gates.yaml").read_text())["quality"]
 
 
 def _group_by_series(rows: list[dict]) -> dict[str, list[dict]]:
@@ -57,17 +61,17 @@ def train_and_evaluate(rows: list[dict], seed: int, train_mean: float) -> dict:
 
 
 def check_gates(report: dict) -> dict:
-    """Policy: >=10% lower val MAE, no series worsening >5% (ML-003 slice)."""
+    """Policy gates from policies/gates.yaml (ML-003 slice)."""
     val = report["validation"]
     reasons = []
     if val["baseline_mae"] and val["baseline_mae"] > 0:
         improvement = (val["baseline_mae"] - val["mae"]) / val["baseline_mae"]
-        if improvement < 0.10:
+        if improvement < _QUALITY["min_improvement"]:
             reasons.append(f"insufficient_improvement:{improvement:.3f}")
     for sid, s in val["per_series"].items():
         if s["mae"] is None or s["baseline_mae"] in (None, 0):
             continue
         worsen = (s["mae"] - s["baseline_mae"]) / s["baseline_mae"]
-        if worsen > 0.05:
+        if worsen > _QUALITY["max_series_worsen"]:
             reasons.append(f"series_regressed:{sid}:{worsen:.3f}")
     return {"pass": not reasons, "reasons": reasons}
