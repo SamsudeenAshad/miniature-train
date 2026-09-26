@@ -42,7 +42,7 @@ def live():
 
 @app.get("/health/ready")
 def ready():
-    return {"status": "ready", "deps": "skeleton"}
+    return {"status": "ready", "store": _store.backend}
 
 
 @app.post("/v1/projects", status_code=201)
