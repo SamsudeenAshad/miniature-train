@@ -10,3 +10,5 @@ def test_transfer_owners():
     for owner in ("platform engineer", "ml engineer", "service owner", "project admin"):
         assert owner in doc
     assert "ExternalSecret" in doc or "externalsecret" in doc.lower()
+    for secret in ("control-api", "object-store"):
+        assert secret in doc, secret
