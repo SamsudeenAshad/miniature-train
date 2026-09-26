@@ -3,11 +3,11 @@
 ## Branches
 
 - `main` is the releasable branch. Never commit directly except release notes.
-- Day-to-day work lands on `dev/rolling` as one commit per step, merged to `main`
+- Day-to-day work lands on `dev/round2` as one commit per step, merged to `main`
   with `git merge --no-ff` after green verification.
 - New `feat/*` or `fix/*` branches only for parallel or risky work that must stay
   isolated; delete them (local and remote) right after merging.
-- After any direct-to-main commit (releases), merge `main` back into `dev/rolling`
+- After any direct-to-main commit (releases), merge `main` back into `dev/round2`
   before the next step so the branches can't drift.
 - Keep the branch list short: `main`, `dev/rolling`, and at most one active topic.
 
