@@ -24,5 +24,6 @@ Each entry: ID, proposer, reason, affected requirements, WBS/effort, security/da
 | CR-018 | 2026-09-26 | v0.16.0: contracts honed (status codes, live schema conformance) | accepted, tagged v0.16.0 |
 | CR-019 | 2026-09-26 | v0.17.0: API correctness (replay codes, seams, live contracts) | accepted, tagged v0.17.0 |
 | CR-020 | 2026-09-26 | v0.18.0: seams + unification (policy-sourced bounds, version parity) | accepted, tagged v0.18.0 |
+| CR-021 | 2026-09-26 | v0.19.0: local stack + API polish (compose health, envelopes, contracts) | accepted, tagged v0.19.0 |
 
 Baseline is not rewritten to disguise failed experiments; new features require new CR rows.
