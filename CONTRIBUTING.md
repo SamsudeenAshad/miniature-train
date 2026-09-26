@@ -10,7 +10,9 @@
 ## Merging to main
 
 1. `python -m pytest -q` green (and `npm run check` + `npm run build` if `apps/web` touched).
-2. Commit as `samsudeenashad`, no `Co-authored-by` trailers.
+2. Verify first, merge second: never chain `pytest; ... merge` in one command —
+   the merge runs even when tests fail. Read the result, then merge.
+3. Commit as `samsudeenashad`, no `Co-authored-by` trailers.
 3. Push branch, merge with `git merge --no-ff feat/<scope> -m "Merge ..."` on `main`.
 4. Push `main`.
 
