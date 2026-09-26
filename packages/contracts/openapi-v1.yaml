@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   title: miniature-train control API
-  version: 0.1.0
-  description: Skeleton per SRS 10.2. Exact schemas are implementation deliverables.
+  version: 0.2.0
+  description: Contract per SRS 10.2. v0.2.0 adds replay/conflict responses.
 servers:
   - url: https://control.local/v1
 paths:

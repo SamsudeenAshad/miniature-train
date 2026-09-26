@@ -24,6 +24,7 @@ def _load_infer():
 
 def test_control_paths_implemented():
     doc = yaml.safe_load((ROOT / "packages/contracts/openapi-v1.yaml").read_text())
+    assert doc["info"]["version"] == "0.2.0"
     routes = {r.path for r in _load_api().app.routes if hasattr(r, "path")}
     for path in ("/health/live", "/health/ready", "/v1/projects",
                  "/v1/projects/{project_id}/overview"):
