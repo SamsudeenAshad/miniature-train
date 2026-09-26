@@ -27,7 +27,7 @@
 | AT-21 | Perf profiles | deferred (needs cluster); contract: test_health |
 | AT-22 | Degraded operation | test_observability, test_health |
 | AT-23 | Retraining cooldown | test_observability |
-| AT-24 | Threat-driven | test_governance, test_security, test_secrets_manifest, test_secret_refs, test_hardening, test_executor_rbac, test_inference_rbac, test_token_sweep, test_pod_security |
+| AT-24 | Threat-driven | test_governance, test_security, test_secrets_manifest, test_secret_refs, test_hardening, test_executor_rbac, test_inference_rbac, test_token_sweep, test_pod_security, test_supply_chain |
 | AT-25 | Handover walkthrough | test_demo, test_handover, test_dod, test_acceptance, test_architecture, test_modelcards, test_transfer, test_runbook, test_platform_status, test_demo_script |
 | AT-26 | R3 copilot | out of scope (optional) |
 | AT-27 | Capacity bounds | test_capacity, test_resourcequota, test_limitrange, test_resources, test_schedule |
