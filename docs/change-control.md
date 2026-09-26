@@ -19,5 +19,6 @@ Each entry: ID, proposer, reason, affected requirements, WBS/effort, security/da
 | CR-013 | 2026-09-25 | v0.11.0: verified wiring (fleet sweeps) | accepted, tagged v0.11.0 |
 | CR-014 | 2026-09-26 | v0.12.0: seams + supply chain (audits clean, advisories patched) | accepted, tagged v0.12.0 |
 | CR-015 | 2026-09-26 | v0.13.0: persistence path (migrations 001–010) + local dev parity | accepted, tagged v0.13.0 |
+| CR-016 | 2026-09-26 | v0.14.0: hardening sweeps + persistence schema | accepted, tagged v0.14.0 |
 
 Baseline is not rewritten to disguise failed experiments; new features require new CR rows.
