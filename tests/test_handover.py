@@ -34,4 +34,6 @@ def test_readme_documents_verification_command():
     assert "python -m pytest -q" in readme
     for cmd in ("npm ci", "npm run typecheck", "npm run check", "npm run build", "pip_audit"):
         assert cmd in readme, cmd
+    for cmd in ("ml.data_generator", "ml.validate_cli", "ml.snapshot_cli"):
+        assert cmd in readme, cmd
     assert "docker compose" in readme and "POSTGRES_PASSWORD" in readme
