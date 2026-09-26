@@ -40,4 +40,4 @@ def test_no_floating_tags():
 def test_first_party_tags_uniform():
     ours = [(f, i) for f, i in _images() if i.startswith("miniature-train/")]
     assert ours, "no first-party images found"
-    assert all(i.endswith(":v0.17.0") for _, i in ours), ours
+    assert all(i.endswith(":v0.18.0") for _, i in ours), ours
