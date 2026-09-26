@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
-MIN_OBS = 500
+from pathlib import Path
+
+import yaml
+
+_ADAPTER = yaml.safe_load((Path(__file__).resolve().parent / "evidently.yaml").read_text())
+
+MIN_OBS = int(_ADAPTER["window"]["min_observations"])
+SHIFT_THRESHOLD = float(_ADAPTER["thresholds"]["mean_shift"])
 MIN_LABEL_COVERAGE = 0.8
 COOLDOWN_H = 24
 
@@ -15,11 +22,11 @@ def drift_report(reference: list[float], current: list[float], name: str) -> dic
     shift = abs(cur_mean - ref_mean) / (abs(ref_mean) or 1.0)
     return {
         "metric": name,
-        "status": "drift" if shift > 0.15 else "stable",
+        "status": "drift" if shift > SHIFT_THRESHOLD else "stable",
         "reference_n": len(reference),
         "window_n": len(current),
         "shift": shift,
-        "method": "mean_shift_0.15",
+        "method": f"mean_shift_{SHIFT_THRESHOLD}",
     }
 
 
