@@ -26,6 +26,9 @@ def test_predict_contract_over_http():
     assert body["request_id"] == "req_http_1"
     assert body["prediction"] >= 0
     assert "model_version" in body and "feature_version" in body
+    anon = c.post("/predict", json={"series_id": "store_1_sku_1", "hour": 9, "day_of_week": 0,
+                                    "is_weekend": 0, "on_promotion": 0, "history": [20] * 200})
+    assert anon.json()["request_id"].startswith("req_")
     assert c.post("/predict", json={"series_id": "x"}).status_code == 422
     bad = c.post("/predict", json={"series_id": "x"})
     assert bad.json()["code"] == "unprocessable"
