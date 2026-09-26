@@ -10,6 +10,7 @@
 6. Stateful data syncs on wave `0` via `sync-wave` annotation; apps default to wave `1`.
 7. Disruption budgets: replicas get `minAvailable`, singletons get `maxUnavailable: 0`.
 8. New tables ship as sequenced migrations in `infra/migrations/` (gapless numbering tested).
+9. Metrics need a ServiceMonitor with the NFR-003 30s interval to be scraped.
 9. Image built from `infra/docker/`; first-party tags advance uniformly.
 10. Local compose entry with healthcheck and healthy-only dependencies.
 11. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
