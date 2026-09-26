@@ -4,5 +4,6 @@
 | --- | --- | --- | --- |
 | R1 skeleton | pilot-accepted with limitations | 2026-09-24 | dataset-to-service path works; perf unmeasured |
 | R2 policy slices | pilot-accepted with limitations | 2026-09-24 | guards/rollback/recovery enforced in code; cluster proof pending |
+| v0.7.0–v0.12.0 platform + APIs | pilot-accepted with limitations | 2026-09-26 | manifests statically verified; fleet sweeps green; cluster apply pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
