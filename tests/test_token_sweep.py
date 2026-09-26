@@ -1,10 +1,11 @@
-"""Token choice tests (Step 93). Every workload declares automount explicitly; all false."""
+"""Token choice tests (Steps 93, 179). Every workload declares automount explicitly; all false."""
 
 from pathlib import Path
 
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1] / "infra/k8s"
+WORKFLOWS = Path(__file__).resolve().parents[1] / "infra/workflows"
 
 
 def _pods():
@@ -26,3 +27,13 @@ def test_explicit_tokenless_everywhere():
     assert len(pods) >= 10
     for fname, name, pod in pods:
         assert pod.get("automountServiceAccountToken") is False, f"{fname} {name}"
+    tokenless_sas = set()
+    for f in sorted(ROOT.glob("*.yaml")):
+        for d in yaml.safe_load_all(f.read_text()):
+            if d and d.get("kind") == "ServiceAccount" and d.get("automountServiceAccountToken") is False:
+                tokenless_sas.add(d["metadata"]["name"])
+    for f in sorted(WORKFLOWS.glob("*.yaml")):
+        for d in yaml.safe_load_all(f.read_text()):
+            if d and d.get("kind") == "WorkflowTemplate":
+                sa = d["spec"].get("serviceAccountName")
+                assert sa in tokenless_sas, f"{f.name} uses tokened SA {sa}"
