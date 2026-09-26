@@ -1,9 +1,15 @@
 """Training/eval/registry/gate tests (FR-009/010/011, ML-002/003 slice)."""
 
+from pathlib import Path
+
+import yaml
+
 from ml.data_generator import generate_rows
 from ml.features import fit_preprocessing
 from ml import registry
 from ml.training import check_gates, train_and_evaluate
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _train_mean(rows):
@@ -29,6 +35,14 @@ def test_candidate_beats_baseline_and_gates():
     # candidate learns promo lift; must not regress badly
     assert isinstance(gates["pass"], bool)
     assert isinstance(gates["reasons"], list)
+
+
+def test_gate_thresholds_come_from_policy():
+    import ml.training as t
+
+    doc = yaml.safe_load((ROOT / "policies/gates.yaml").read_text())["quality"]
+    assert t._QUALITY == doc
+    assert doc == {"min_improvement": 0.10, "max_series_worsen": 0.05}
 
 
 def test_registry_alias_does_not_move_running():
