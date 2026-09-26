@@ -25,3 +25,4 @@ def test_monitors_match_named_ports():
         ports = {p.get("name") for p in services[target]["spec"]["ports"]}
         for ep in m["spec"]["endpoints"]:
             assert ep["port"] in ports, f"{target} missing named port {ep['port']}"
+            assert ep["interval"] == "30s", f"{target} scrape must match NFR-003 30s"
