@@ -8,8 +8,8 @@
     "build": "vite build",
     "check": "node check.mjs",
     "typecheck": "tsc --noEmit",
-    "test:unit": "node --experimental-strip-types src/state.test.ts",
-    "test": "node check.mjs && node --experimental-strip-types src/state.test.ts"
+    "test:unit": "node --experimental-strip-types src/state.test.ts && node --experimental-strip-types src/config.test.ts",
+    "test": "node check.mjs && npm run test:unit"
   },
   "dependencies": {
     "react": "18.3.1",
