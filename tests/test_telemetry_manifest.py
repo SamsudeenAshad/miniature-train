@@ -13,3 +13,4 @@ def test_collector_redacts_and_exports():
     deleted = {a["key"] for a in actions if a["action"] == "delete"}
     assert {"authorization", "cookie"} <= deleted
     assert "prometheus" in cfg["exporters"]
+    assert set(cfg["service"]["pipelines"]) == {"metrics", "logs", "traces"}
