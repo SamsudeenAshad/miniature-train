@@ -4,6 +4,7 @@ import importlib.util
 from pathlib import Path
 
 import pytest
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -45,3 +46,9 @@ def test_incident_guards():
     i = inc.transition(i, "resolved", "operator", "fixed", 2, evidence=True)
     i = inc.transition(i, "closed", "operator", "done", 3)
     assert i["state"] == "closed" and i["version"] == 4
+
+
+def test_retry_budget_matches_workflow():
+    wf = yaml.safe_load((ROOT / "infra/workflows/training-dag.yaml").read_text())
+    step = next(t for t in wf["spec"]["templates"] if t["name"] == "step")
+    assert jobs.MAX_ATTEMPTS == step["retryStrategy"]["limit"] + 1
