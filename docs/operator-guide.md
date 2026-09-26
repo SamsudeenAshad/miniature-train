@@ -15,6 +15,7 @@ Console `http://localhost:8080`, control API `http://localhost:8000`.
   `project_admin` to create). Reads use stored membership; strangers get 404.
 - Creation accepts `Idempotency-Key`: same key + payload replays the same
   project (`200` + `Location`); same key + different payload is `409`.
+- Callers without headers are denied (403 create, 404 read) — there is no anonymous access.
 - Every create/replay answers a `Location: /v1/projects/{id}` header.
 
 ## ML lifecycle
