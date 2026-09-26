@@ -6,6 +6,7 @@ metadata:
 spec:
   backoffLimit: 3
   ttlSecondsAfterFinished: 3600
+  activeDeadlineSeconds: 300
   template:
     spec:
       securityContext:
