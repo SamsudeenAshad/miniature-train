@@ -15,3 +15,5 @@ def test_compose_consistent():
     blob = (ROOT / "infra/docker-compose.yml").read_text()
     assert "POSTGRES_PASSWORD=mt" not in blob
     assert doc["services"]["db"]["image"] == "postgres:16.4"
+    assert doc["services"]["control-api"]["depends_on"]["db"]["condition"] == "service_healthy"
+    assert "pg_isready" in blob

@@ -11,6 +11,9 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
   inference:
     build:
       context: ..
@@ -23,3 +26,8 @@ services:
       - POSTGRES_USER=mt
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
       - POSTGRES_DB=mt
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mt -d mt"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
