@@ -3,9 +3,11 @@
 ## Branches
 
 - `main` is the releasable branch. Never commit directly except release notes.
-- Feature work: `feat/<scope>` branched from `main`.
-- Fixes: `fix/<scope>` branched from `main`.
-- One step = one branch = one merge.
+- Day-to-day work lands on `dev/rolling` as one commit per step, merged to `main`
+  with `git merge --no-ff` after green verification.
+- New `feat/*` or `fix/*` branches only for parallel or risky work that must stay
+  isolated; delete them (local and remote) right after merging.
+- Keep the branch list short: `main`, `dev/rolling`, and at most one active topic.
 
 ## Merging to main
 
