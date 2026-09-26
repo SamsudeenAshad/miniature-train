@@ -75,4 +75,15 @@ def ready():
 
 @app.post("/predict")
 def predict(body: PredictIn, x_request_id: str | None = Header(default=None)):
-    return _predict_fn()(body.model_dump(), model(), request_id=x_request_id)
+    payload = body.model_dump()
+    predict_mod = _load("predict", "services/inference/predict.py")
+    try:
+        predict_mod.validate_input(payload)
+    except ValueError:
+        return JSONResponse(status_code=422, content={
+            "code": "unprocessable",
+            "message": "schema or business-rule validation failed",
+            "request_id": x_request_id or "",
+            "retryable": False,
+        })
+    return _predict_fn()(payload, model(), request_id=x_request_id)
