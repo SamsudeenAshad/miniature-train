@@ -14,5 +14,5 @@ def test_manifests_parse_and_namespace():
         docs[f.name] = parsed[0] if len(parsed) == 1 else parsed
     assert docs["namespace.yaml"]["kind"] == "Namespace"
     dep = docs["control-api.yaml"]
-    assert dep["spec"]["template"]["spec"]["containers"][0]["image"].endswith(":v0.17.0")
+    assert dep["spec"]["template"]["spec"]["containers"][0]["image"].endswith(":v0.18.0")
     assert docs["service.yaml"]["kind"] == "Service"
