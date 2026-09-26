@@ -57,6 +57,7 @@ def create_project(body: ProjectIn, response: Response,
         try:
             prior = _idem.submit(idempotency_key, {"name": body.name, "owner": body.owner})
             if prior.get("project_id"):
+                response.status_code = status.HTTP_200_OK
                 return _projects[prior["project_id"]]
         except ValueError:
             response.status_code = status.HTTP_409_CONFLICT

@@ -37,6 +37,8 @@ def test_project_idempotency():
     h = {"X-Subject": "admin-1", "X-Role": "project_admin", "Idempotency-Key": "k-1"}
     r1 = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}, headers=h)
     r2 = c.post("/v1/projects", json={"name": "demo", "owner": "owner-1"}, headers=h)
+    assert r1.status_code == 201
+    assert r2.status_code == 200
     assert r1.json()["id"] == r2.json()["id"]
     r3 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"}, headers=h)
     assert r3.status_code == 409
