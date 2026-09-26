@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Prediction",
+  "type": "object",
+  "required": ["request_id", "prediction", "model_version", "feature_version"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "prediction": {"type": "number", "minimum": 0},
+    "model_version": {"type": "string"},
+    "feature_version": {"type": "string"}
+  }
+}
