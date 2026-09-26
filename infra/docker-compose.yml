@@ -41,6 +41,11 @@ services:
     depends_on:
       - control-api
       - inference
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:8080/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
   db:
     image: postgres:16.4
     environment:

@@ -23,6 +23,7 @@ def test_compose_consistent():
     assert "nginx.compose.conf" in mounted
     for svc in ("control-api", "inference"):
         assert "healthcheck" in doc["services"][svc], svc
+    assert "healthcheck" in doc["services"]["web"]
 
 
 def test_proxy_confs_agree_on_routes():
