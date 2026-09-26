@@ -10,7 +10,7 @@
 | AT-04 | Duplicate/quota/cancel/timeout | test_notify, test_lifecycle, test_schedule, test_contracts_api, test_quota_parity |
 | AT-05 | Quality gates block | test_training, test_cards |
 | AT-06 | Alias pin, artifact trust | test_training, test_provenance, test_artifacts (in test_tuning) |
-| AT-07 | Feature parity, input validation | test_features, test_serving, test_inference_api, test_labels |
+| AT-07 | Feature parity, input validation | test_features, test_serving, test_inference_api, test_labels, test_prediction_schema |
 | AT-08 | Staging/shadow/promotion/rollback | test_serving, test_rollout |
 | AT-09 | Canary stages/pause/abort | test_canary, test_rollout_manifest |
 | AT-10 | Abort + reconcile | test_rollout |
