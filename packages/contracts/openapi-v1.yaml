@@ -41,9 +41,16 @@ paths:
           required: true
           schema:
             type: string
+        - in: header
+          name: X-Subject
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: overview with freshness
+        "404":
+          description: absent or concealed by membership policy
   /v1/projects/{project_id}/datasets:
     post:
       summary: Submit dataset object reference and digest for validation (FR-004)

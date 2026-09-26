@@ -33,6 +33,10 @@ def test_control_paths_implemented():
         assert path in routes, path
     create_responses = set(doc["paths"]["/v1/projects"]["post"]["responses"])
     assert {"200", "201", "403", "409"} <= create_responses
+    overview = doc["paths"]["/v1/projects/{project_id}/overview"]["get"]
+    assert "404" in overview["responses"]
+    assert any(p.get("in") == "header" and p.get("name") == "X-Subject"
+               for p in overview["parameters"])
     assert any("datasets" in p for p in doc["paths"])  # contract still describes roadmap
 
 
