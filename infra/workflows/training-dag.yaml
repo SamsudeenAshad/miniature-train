@@ -6,6 +6,10 @@ metadata:
 spec:
   activeDeadlineSeconds: 7200
   serviceAccountName: training
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   templates:
     - name: pipeline
       dag:
