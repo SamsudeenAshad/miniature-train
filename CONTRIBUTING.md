@@ -17,11 +17,13 @@
 2. Verify first, merge second: never chain `pytest; ... merge` in one command —
    the merge runs even when tests fail. Read the result, then merge.
 3. Commit as `samsudeenashad`, no `Co-authored-by` trailers.
-3. Push branch, merge with `git merge --no-ff feat/<scope> -m "Merge ..."` on `main`.
-4. Push `main`.
+4. Push branch, merge with `git merge --no-ff -m "Merge ..."` on `main`.
+5. Push `main`.
 
 ## Releases
 
-- Release notes in `docs/releases/vX.Y.Z.md`, committed to `main`.
-- Annotated tag `vX.Y.Z` pushed; GitHub Release object drafted from the tag in the web UI.
+- Release notes in `docs/releases/vX.Y.Z.md` plus version bumps, committed to `main`.
+- Tag `vX.Y.Z` on the release commit, then verify, then push both: the
+  notes↔tags parity test fails until the tag exists.
+- Annotated tag pushed; GitHub Release object drafted from the tag in the web UI.
 - Patch/minor/major: minor per step-batch, major on breaking API/contract change.
