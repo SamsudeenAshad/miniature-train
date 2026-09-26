@@ -9,6 +9,7 @@ services:
       - POSTGRES_DB=mt
       - POSTGRES_USER=mt
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    restart: unless-stopped
     ports:
       - "8000:8000"
     depends_on:
@@ -23,6 +24,7 @@ services:
     build:
       context: ..
       dockerfile: infra/docker/inference.Dockerfile
+    restart: unless-stopped
     ports:
       - "8001:8000"
     healthcheck:
@@ -34,6 +36,7 @@ services:
     build:
       context: ..
       dockerfile: infra/docker/web.Dockerfile
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
@@ -54,6 +57,7 @@ services:
       - POSTGRES_USER=mt
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
       - POSTGRES_DB=mt
+    restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U mt -d mt"]
       interval: 5s

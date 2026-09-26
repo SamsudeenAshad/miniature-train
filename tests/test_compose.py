@@ -24,6 +24,9 @@ def test_compose_consistent():
     for svc in ("control-api", "inference"):
         assert "healthcheck" in doc["services"][svc], svc
     assert "healthcheck" in doc["services"]["web"]
+    for svc in ("control-api", "inference", "web"):
+        assert doc["services"][svc].get("restart") == "unless-stopped", svc
+    assert doc["services"]["db"].get("restart") == "always"
     deps = doc["services"]["web"]["depends_on"]
     assert deps["control-api"]["condition"] == "service_healthy"
     assert deps["inference"]["condition"] == "service_healthy"
