@@ -9,5 +9,5 @@ def test_runbook_lists_sweeps():
     doc = (ROOT / "docs/runbook-add-service.md").read_text()
     for sweep in ("test_probes", "test_secret_refs", "test_configmap_refs", "test_selectors",
                   "sync-wave", "uniform", "WANT", "Disruption", "migrations", "compose",
-                  "ServiceMonitor"):
+                  "ServiceMonitor", "parity"):
         assert sweep in doc
