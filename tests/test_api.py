@@ -42,5 +42,6 @@ def test_project_idempotency():
     assert r1.status_code == 201
     assert r2.status_code == 200
     assert r1.json()["id"] == r2.json()["id"]
+    assert r1.headers["location"] == r2.headers["location"] == f"/v1/projects/{r1.json()['id']}"
     r3 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"}, headers=h)
     assert r3.status_code == 409

@@ -2,6 +2,7 @@
 
 Pilot identity: X-Subject/X-Role headers stand in for OIDC claims.
 Reads use stored membership, never the presented role.
+Idempotency keys follow FR-038 with 409 on conflicting reuse.
 """
 
 import importlib.util
@@ -57,8 +58,10 @@ def create_project(body: ProjectIn, response: Response,
         try:
             prior = _idem.submit(idempotency_key, {"name": body.name, "owner": body.owner})
             if prior.get("project_id"):
+                pid = prior["project_id"]
                 response.status_code = status.HTTP_200_OK
-                return _projects[prior["project_id"]]
+                response.headers["Location"] = f"/v1/projects/{pid}"
+                return _projects[pid]
         except ValueError:
             response.status_code = status.HTTP_409_CONFLICT
             return {"code": "conflict", "message": "idempotency key reused with different payload",
@@ -68,6 +71,7 @@ def create_project(body: ProjectIn, response: Response,
     _members[pid] = {x_subject or body.owner: "project_admin", body.owner: "project_admin"}
     if idempotency_key:
         _idem.attach(idempotency_key, "project_id", pid)
+    response.headers["Location"] = f"/v1/projects/{pid}"
     return _projects[pid]
 
 
