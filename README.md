@@ -52,7 +52,9 @@ docker compose -f infra/docker-compose.yml up --build
 # console http://localhost:8080, control API http://localhost:8000
 ```
 
-## Roadmap
+## Status
 
-- Step 1 (WBS 2.1 + 3.1 slice): foundation, contracts skeleton, CI, seeded demand generator + manifest (this commit)
-- Next: validation/quarantine + snapshots/DVC (WBS 3.3), features/parity (WBS 3.4), training/eval/registry (WBS 4.x)
+Shipped through v0.19.0: reproducible data → training → registry → HTTP services
+→ canary delivery → AIOps → governed recovery, with manifests, console, and
+fleet-wide contract tests. See `docs/releases/` for per-release notes and
+`docs/platform-status.md` for what is proven vs pending a cluster.
