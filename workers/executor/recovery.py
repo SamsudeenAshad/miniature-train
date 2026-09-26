@@ -5,10 +5,15 @@ from __future__ import annotations
 import hashlib
 import json
 import time
+from pathlib import Path
 
-APPROVAL_TTL_S = 15 * 60
-EVIDENCE_TTL_S = 2 * 60
-COOLDOWN_S = 15 * 60
+import yaml
+
+_POLICY = yaml.safe_load((Path(__file__).resolve().parents[2] / "policies/action-policy.yaml").read_text())
+
+APPROVAL_TTL_S = int(_POLICY["approval_ttl_s"])
+EVIDENCE_TTL_S = int(_POLICY["evidence_ttl_s"])
+COOLDOWN_S = int(_POLICY["cooldown_s"])
 
 RUNBOOKS = {
     "rollback-release": {"version": 1, "risk": "medium", "targets": ("staging", "prod-like")},
