@@ -11,7 +11,7 @@ REQUIRED_DOCS = ["docs/overview.md", "docs/operator-guide.md", "docs/acceptance-
                  "docs/change-control.md", "docs/risks.md", "docs/acceptance-decisions.md",
                  "docs/definition-of-done.md", "docs/controller-ownership.md",
                  "docs/restore-runbook.md", "docs/image-tags.md", "docs/platform-requirements.md",
-                 "CONTRIBUTING.md"]
+                 "apps/web/SECURITY.md", "CONTRIBUTING.md"]
 
 
 def test_handover_docs_present():
