@@ -9,6 +9,10 @@ for (const s of ["overview", "incident", "action", "audit"]) {
   if (!contract.screens.includes(s)) throw new Error(`contract missing screen ${s}`);
   if (!state.includes(`"${s}"`)) throw new Error(`state missing screen ${s}`);
 }
+const stateScreens = [...state.matchAll(/"(overview|data|training|runs|model|monitoring|incident|action|audit|settings)"/g)].map((m) => m[1]);
+for (const s of contract.screens) {
+  if (!stateScreens.includes(s)) throw new Error(`state SCREENS missing contract screen ${s}`);
+}
 if (!app.includes("SCREENS")) throw new Error("App must render SCREENS");
 if (!app.includes("loadConfig")) throw new Error("App must use the backend config loader");
 for (const st of ["loading", "empty", "denied", "disconnected", "partial", "stale"]) {
