@@ -22,3 +22,9 @@ def test_anomaly_event_example():
     for k in ("schema_version", "event_id", "event_type", "project_id", "payload"):
         assert k in evt
     assert evt["payload"]["score_semantics"] == "normalized_anomaly_score_not_probability"
+
+
+def test_inference_contract_parses():
+    doc = yaml.safe_load((ROOT / "packages/contracts/inference-openapi.yaml").read_text())
+    assert doc["openapi"].startswith("3.")
+    assert doc["info"]["version"] == "0.2.0"

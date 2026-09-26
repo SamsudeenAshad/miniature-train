@@ -3,7 +3,7 @@
 Maintained per release. Current baseline: v0.24.0 (docs true, API locked down).
 
 - Git: `git log --format='%H %an %s'` — all steps by `samsudeenashad`, no co-author trailers.
-- Contracts: `packages/contracts/openapi-v1.yaml`, `events/`, `schemas/`.
+- Contracts: `packages/contracts/openapi-v1.yaml`, `inference-openapi.yaml`, `events/`, `schemas/`.
 - Data: `ml/data_generator.py` (`demand-gen-0.1.0`, seed 42, 20160 rows), manifests via `ml/snapshot.py`; entry points `ml/validate_cli.py`, `ml/snapshot_cli.py`; schema chain `infra/migrations/` 001–010.
 - Training: `ml/training.py` + `ml/tuning.py` + `ml/cards.py`; gates in `policies/gates.yaml`; runner `workers/training/runner.py`; DAG `infra/workflows/training-dag.yaml`.
 - Serving: `services/inference/app/main.py`, `services/control-api/app/main.py`, rollout `infra/k8s/rollout.yaml`, `virtualservice.yaml`, stable/canary services.
