@@ -20,7 +20,7 @@ spec:
       serviceAccountName: control-api
       containers:
         - name: api
-          image: miniature-train/control-api:v0.11.0
+          image: miniature-train/control-api:v0.12.0
           env:
             - name: POSTGRES_HOST
               value: db
