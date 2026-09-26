@@ -2,6 +2,7 @@
 
 import json
 import re
+import subprocess
 import tomllib
 from pathlib import Path
 
@@ -27,3 +28,10 @@ def test_py_version_matches_release():
     proj = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
     major, minor, _ = _latest_release()
     assert proj["version"] == f"{major}.{minor}.0"
+
+
+def test_every_release_note_has_tag():
+    notes = {f.stem for f in (ROOT / "docs/releases").glob("v*.md")}
+    tags = set(subprocess.run(["git", "tag", "--list"], capture_output=True, text=True,
+                              cwd=ROOT).stdout.split())
+    assert notes <= tags, notes - tags
