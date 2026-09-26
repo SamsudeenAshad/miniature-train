@@ -45,3 +45,7 @@ def test_inference_paths_implemented():
     routes = {r.path for r in infer.app.routes if hasattr(r, "path")}
     assert {"/health/live", "/health/ready", "/predict"} <= routes
     assert infer.app.version == "0.2.0"
+    doc = yaml.safe_load((ROOT / "packages/contracts/inference-openapi.yaml").read_text())
+    assert doc["info"]["version"] == infer.app.version
+    assert set(doc["paths"]) >= {"/health/live", "/health/ready", "/predict"}
+    assert set(doc["paths"]["/predict"]["post"]["responses"]) >= {"200", "422"}
