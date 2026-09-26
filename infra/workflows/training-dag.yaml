@@ -40,7 +40,7 @@ spec:
       retryStrategy:
         limit: 2
       container:
-        image: miniature-train/training:v0.13.0
+        image: miniature-train/training:v0.14.0
         command: [python, -m, workers.training.runner]
         args: ["--stage", "{{inputs.parameters.stage}}"]
         resources:

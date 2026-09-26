@@ -21,7 +21,7 @@ spec:
       serviceAccountName: inference
       containers:
         - name: server
-          image: miniature-train/inference:v0.13.0
+          image: miniature-train/inference:v0.14.0
           ports:
             - containerPort: 8000
           readinessProbe:
