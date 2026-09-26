@@ -45,3 +45,15 @@ def test_project_idempotency():
     assert r1.headers["location"] == r2.headers["location"] == f"/v1/projects/{r1.json()['id']}"
     r3 = c.post("/v1/projects", json={"name": "other", "owner": "owner-1"}, headers=h)
     assert r3.status_code == 409
+
+
+def test_validation_error_envelope():
+    m = _load()
+    m.reset()
+    c = TestClient(m.app)
+    r = c.post("/v1/projects", json={"name": "broken"},
+               headers={"X-Subject": "admin-1", "X-Role": "project_admin"})
+    assert r.status_code == 422
+    body = r.json()
+    assert set(body) >= {"code", "message", "request_id", "retryable"}
+    assert body["code"] == "unprocessable" and body["retryable"] is False
