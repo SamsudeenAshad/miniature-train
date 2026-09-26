@@ -35,3 +35,5 @@ def test_every_release_note_has_tag():
     tags = set(subprocess.run(["git", "tag", "--list"], capture_output=True, text=True,
                               cwd=ROOT).stdout.split())
     assert notes <= tags, notes - tags
+    release_tags = {t for t in tags if re.fullmatch(r"v\d+\.\d+\.\d+", t)}
+    assert release_tags <= notes, release_tags - notes
