@@ -22,3 +22,7 @@ def test_rules_mirror_and_mounts():
     prom = _by_name(list(yaml.safe_load_all((K8S / "telemetry.yaml").read_text())), "Deployment", "prometheus")
     spec = prom["spec"]["template"]["spec"]
     assert {"config", "rules"} <= {v["name"] for v in spec["volumes"]}
+    cfg = _by_name(cfg_docs, "ConfigMap", "prometheus")
+    server = yaml.safe_load(cfg["data"]["prometheus.yaml"])
+    assert server["global"]["scrape_interval"] == "30s"
+    assert server["global"]["evaluation_interval"] == "30s"
