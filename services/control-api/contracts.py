@@ -37,3 +37,8 @@ def submit(key: str, payload: dict) -> dict:
     resp = {"accepted": True, "key": key, "digest": digest}
     _store[key] = {"digest": digest, "response": resp}
     return resp
+
+
+def attach(key: str, field: str, value: str) -> None:
+    """Record a created resource on an accepted key. Key must exist."""
+    _store[key]["response"][field] = value
