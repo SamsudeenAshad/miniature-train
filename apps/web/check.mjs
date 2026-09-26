@@ -21,4 +21,10 @@ const publicConfig = JSON.parse(readFileSync(new URL("./public/config.json", imp
 for (const k of ["controlApiUrl", "inferenceUrl"]) {
   if (typeof publicConfig[k] !== "string") throw new Error(`public config missing ${k}`);
 }
+for (const f of ["./nginx.conf", "./nginx.compose.conf"]) {
+  const conf = readFileSync(new URL(f, import.meta.url), "utf-8");
+  for (const route of ["/api/control/", "/api/inference/"]) {
+    if (!conf.includes(route)) throw new Error(`${f} missing route ${route}`);
+  }
+}
 console.log("web checks ok");
