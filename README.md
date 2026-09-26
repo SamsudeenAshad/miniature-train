@@ -20,19 +20,29 @@ Name is the software project name; railway/train control is out of scope.
 - `tests/` — contract, integration, security, workload, fault scenarios
 - `docs/` — SRS/WBS, architecture decisions, model cards, reports, runbooks, handover
 
-## Quickstart (Step 1)
+## Quickstart
 
-Requires Python 3.13 (CPU-only, no GPU).
+Requires Python 3.13 (CPU-only, no GPU) and Node 22 for the console.
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python -m pytest -q
+python -m pip_audit -r requirements.txt
 python -m ml.data_generator --seed 42 --out data/demand.csv --manifest data/manifest.json
 ```
 
-Verification command (NFR-013): `python -m pytest -q` must pass on a fresh checkout.
+```powershell
+cd apps/web
+npm ci
+npm run typecheck
+npm run check
+npm run build
+```
+
+Verification (NFR-013): `python -m pytest -q` plus the four web commands above
+must pass on a fresh checkout.
 
 ## Roadmap
 
