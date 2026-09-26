@@ -1,6 +1,6 @@
-# Risk review — post v0.19.0 (SRS 18.1)
+# Risk review — post v0.20.0 (SRS 18.1)
 
-| ID | Risk | Status after v0.19.0 |
+| ID | Risk | Status after v0.20.0 |
 | --- | --- | --- |
 | RISK-01 | Infra sprawl delays ML/AIOps | controlled: platform manifests complete, fleet sweeps guard drift |
 | RISK-02 | Synthetic telemetry unrealistic | open: seeds/load varied; real-trace option pending |
@@ -18,7 +18,7 @@
 | RISK-14 | Specialist bottleneck | noted: ML/platform near limits |
 | RISK-15 | Copilot leak/hallucination | n/a: R3 excluded |
 
-New since v0.18.0: compose health ordering, envelope errors, contract parity.
-Cluster apply remains the open proof.
+New since v0.19.0: envelope errors both services, version parity enforced,
+release↔tag parity both directions. Cluster apply remains the open proof.
 In-memory API stores still pending a driver; schema is ready and tested.
 Reserve: 48 PD planned; consumed ~0 (skeleton within base). All spend recorded in change-control.
