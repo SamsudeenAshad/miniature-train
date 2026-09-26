@@ -41,5 +41,7 @@ def test_control_paths_implemented():
 
 
 def test_inference_paths_implemented():
-    routes = {r.path for r in _load_infer().app.routes if hasattr(r, "path")}
+    infer = _load_infer()
+    routes = {r.path for r in infer.app.routes if hasattr(r, "path")}
     assert {"/health/live", "/health/ready", "/predict"} <= routes
+    assert infer.app.version == "0.2.0"

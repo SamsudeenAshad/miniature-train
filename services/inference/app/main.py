@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 ROOT = Path(__file__).resolve().parents[3]
 
-app = FastAPI(title="miniature-train inference", version="0.1.0")
+app = FastAPI(title="miniature-train inference", version="0.2.0")
 
 
 @app.exception_handler(RequestValidationError)
