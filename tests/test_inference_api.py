@@ -34,6 +34,16 @@ def test_predict_contract_over_http():
     assert bad.json()["code"] == "unprocessable"
 
 
+def test_oversized_rejected_before_training():
+    m = _load()
+    m._model = None
+    c = TestClient(m.app)
+    r = c.post("/predict", json={"series_id": "s", "hour": 1, "day_of_week": 0,
+                                 "is_weekend": 0, "on_promotion": 0, "history": [1] * 20000})
+    assert r.status_code == 422
+    assert m._model is None
+
+
 def test_readiness_reflects_model():
     m = _load()
     m._model = None
