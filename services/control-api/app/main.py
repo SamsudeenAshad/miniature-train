@@ -67,7 +67,7 @@ def create_project(body: ProjectIn, response: Response,
     _projects[pid] = {"id": pid, "name": body.name, "owner": body.owner}
     _members[pid] = {x_subject or body.owner: "project_admin", body.owner: "project_admin"}
     if idempotency_key:
-        _idem._store[idempotency_key]["response"]["project_id"] = pid
+        _idem.attach(idempotency_key, "project_id", pid)
     return _projects[pid]
 
 

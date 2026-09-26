@@ -30,5 +30,7 @@ def test_idempotency_conflict():
     r1 = c.submit("k1", {"a": 1})
     r2 = c.submit("k1", {"a": 1})
     assert r1 == r2
+    c.attach("k1", "project_id", "proj_1")
+    assert c.submit("k1", {"a": 1})["project_id"] == "proj_1"
     with pytest.raises(ValueError, match="409"):
         c.submit("k1", {"a": 2})
