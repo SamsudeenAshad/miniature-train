@@ -1,6 +1,11 @@
 """Benchmark scoring tests (ML-004/005 slice)."""
 
-from workers.aiops.benchmark import diagnosis_score, match
+from workers.aiops.benchmark import FAULT_FAMILIES, diagnosis_score, match
+from workers.aiops.harness import FAMILIES
+
+
+def test_families_single_sourced():
+    assert FAULT_FAMILIES == FAMILIES == ("cpu", "memory", "latency", "errors", "faulty_deploy")
 
 
 def test_event_matching_one_to_one():
