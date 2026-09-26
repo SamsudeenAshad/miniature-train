@@ -25,7 +25,8 @@ def test_handover_docs_present():
     for keyword in ("Idempotency-Key", "Location", "X-Subject", "action-policy"):
         assert keyword in guide, keyword
     index = (ROOT / "docs/evidence-index.md").read_text()
-    for path in ("infra/k8s/", "apps/web/", "docs/releases/", "infra/workflows/"):
+    for path in ("infra/k8s/", "apps/web/", "docs/releases/", "infra/workflows/",
+                 "ml/validate_cli.py", "infra/migrations/"):
         assert path in index, path
 
 
