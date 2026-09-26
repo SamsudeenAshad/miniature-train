@@ -19,3 +19,5 @@ def test_handover_docs_present():
 def test_readme_documents_verification_command():
     readme = (ROOT / "README.md").read_text()
     assert "python -m pytest -q" in readme
+    for cmd in ("npm ci", "npm run typecheck", "npm run check", "npm run build", "pip_audit"):
+        assert cmd in readme, cmd
