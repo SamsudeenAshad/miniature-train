@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: miniature-train inference API
+  version: 0.2.0
+  description: Prediction contract per FR-016. Version tracks the service.
+paths:
+  /health/live:
+    get:
+      summary: Process liveness
+      responses:
+        "200":
+          description: alive
+  /health/ready:
+    get:
+      summary: Readiness reflects model load (warming vs ready)
+      responses:
+        "200":
+          description: ready state with model_loaded flag
+  /predict:
+    post:
+      summary: Schema-validated inference with pinned versions (FR-016)
+      responses:
+        "200":
+          description: prediction with request, model, and feature versions
+        "422":
+          description: invalid or oversized input, or business-rule rejection
