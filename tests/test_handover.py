@@ -19,6 +19,8 @@ def test_handover_docs_present():
     assert not missing, missing
     cards = list((ROOT / "docs/model-cards").glob("*.md"))
     assert len(cards) >= 2, cards
+    assert list((ROOT / "docs/releases").glob("v*.md")), "no release notes"
+    assert list((ROOT / "infra/migrations").glob("*.sql")), "no migrations"
     guide = (ROOT / "docs/operator-guide.md").read_text()
     for keyword in ("Idempotency-Key", "Location", "X-Subject", "action-policy"):
         assert keyword in guide, keyword
