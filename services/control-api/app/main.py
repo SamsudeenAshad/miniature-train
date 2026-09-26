@@ -8,7 +8,9 @@ Idempotency keys follow FR-038 with 409 on conflicting reuse.
 import importlib.util
 from pathlib import Path
 
-from fastapi import FastAPI, Header, Response, status
+from fastapi import FastAPI, Header, Request, Response, status
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -25,6 +27,12 @@ _authz = _load("authz", "services/control-api/authz.py")
 _idem = _load("apicontracts", "services/control-api/contracts.py")
 _store_mod = _load("store", "services/control-api/app/store.py")
 app = FastAPI(title="miniature-train control API", version="0.2.0")
+
+
+@app.exception_handler(RequestValidationError)
+def validation_envelope(request: Request, exc: RequestValidationError):
+    body = _idem.error(422, "schema or business-rule validation failed")
+    return JSONResponse(status_code=422, content=body)
 
 _store = _store_mod.MemoryStore()
 _projects = _store.projects
