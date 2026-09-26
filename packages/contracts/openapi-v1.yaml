@@ -25,7 +25,13 @@ paths:
       summary: Create an authorized project (FR-002)
       responses:
         "201":
-          description: project
+          description: project created
+        "200":
+          description: idempotent replay of the same key and payload
+        "403":
+          description: creation requires admin
+        "409":
+          description: key reused with a different payload
   /v1/projects/{project_id}/overview:
     get:
       summary: Permitted health and lifecycle summary with freshness
