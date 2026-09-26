@@ -17,5 +17,6 @@
 | v0.22.0 follow-through | pilot-accepted with limitations | 2026-09-26 | images + governance current; cluster pending |
 | v0.23.0 docs + rigor | pilot-accepted with limitations | 2026-09-26 | guides real; units in CI; cluster pending |
 | v0.24.0 docs true + locked | pilot-accepted with limitations | 2026-09-27 | guides verified; roles denied; cluster pending |
+| v0.25.0 contracts + guides | pilot-accepted with limitations | 2026-09-27 | live conformance; runbook current; cluster pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
