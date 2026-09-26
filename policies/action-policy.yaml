@@ -1,0 +1,6 @@
+# Action execution policy (SRS 11.4). Single source for executor timing bounds.
+version: v1
+approval_ttl_s: 900
+evidence_ttl_s: 120
+cooldown_s: 900
+max_auto_canary_aborts: 1
