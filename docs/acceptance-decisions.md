@@ -11,5 +11,6 @@
 | v0.16.0 contracts honed | pilot-accepted with limitations | 2026-09-26 | live schema conformance; correct replay codes; cluster pending |
 | v0.17.0 API correctness | pilot-accepted with limitations | 2026-09-26 | seams closed, contracts live; cluster pending |
 | v0.18.0 seams + unification | pilot-accepted with limitations | 2026-09-26 | policy-sourced bounds; version parity; cluster pending |
+| v0.19.0 local stack + polish | pilot-accepted with limitations | 2026-09-26 | compose healthy ordering; envelopes; cluster pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
