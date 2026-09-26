@@ -8,5 +8,6 @@
 | v0.13.0 persistence + local dev | pilot-accepted with limitations | 2026-09-26 | schema chain tested; driver pending; compose parity checked |
 | v0.14.0 hardening + schema | pilot-accepted with limitations | 2026-09-26 | sweeps fleet-wide incl. workflows; audits clean; cluster pending |
 | v0.15.0 governance + local dev | pilot-accepted with limitations | 2026-09-26 | compose ordered + healthy; docs current; cluster pending |
+| v0.16.0 contracts honed | pilot-accepted with limitations | 2026-09-26 | live schema conformance; correct replay codes; cluster pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
