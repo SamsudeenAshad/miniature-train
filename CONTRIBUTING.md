@@ -27,3 +27,9 @@
   notes↔tags parity test fails until the tag exists.
 - Annotated tag pushed; GitHub Release object drafted from the tag in the web UI.
 - Patch/minor/major: minor per step-batch, major on breaking API/contract change.
+
+## CI
+
+`ci.yml` runs pytest, pip-audit, and the web checks/build. It clones with full
+history (`fetch-depth: 0`) because the release↔tag parity tests need tags —
+a shallow clone fails them with zero tags present.
