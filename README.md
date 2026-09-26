@@ -44,6 +44,14 @@ npm run build
 Verification (NFR-013): `python -m pytest -q` plus the four web commands above
 must pass on a fresh checkout.
 
+## Local stack (needs Docker)
+
+```powershell
+$env:POSTGRES_PASSWORD = "dev-only-secret"
+docker compose -f infra/docker-compose.yml up --build
+# console http://localhost:8080, control API http://localhost:8000
+```
+
 ## Roadmap
 
 - Step 1 (WBS 2.1 + 3.1 slice): foundation, contracts skeleton, CI, seeded demand generator + manifest (this commit)
