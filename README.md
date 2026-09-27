@@ -54,6 +54,9 @@ docker compose -f infra/docker-compose.yml up --build
 # console http://localhost:8080, control API http://localhost:8000
 ```
 
+Local scope: database, both APIs, and console. Telemetry, delivery, and
+workflows run on the cluster profiles, not in compose.
+
 ## Status
 
 Shipped through v0.19.0: reproducible data → training → registry → HTTP services

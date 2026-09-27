@@ -41,3 +41,4 @@ def test_readme_documents_verification_command():
     for cmd in ("ml.data_generator", "ml.validate_cli", "ml.snapshot_cli"):
         assert cmd in readme, cmd
     assert "docker compose" in readme and "POSTGRES_PASSWORD" in readme
+    assert "Local scope" in readme
