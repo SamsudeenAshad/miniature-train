@@ -20,7 +20,7 @@ def test_handover_docs_present():
     cards = list((ROOT / "docs/model-cards").glob("*.md"))
     assert len(cards) >= 2, cards
     adrs = list((ROOT / "docs/adr").glob("ADR-*.md"))
-    assert len(adrs) >= 4, adrs
+    assert len(adrs) >= 8, adrs
     assert list((ROOT / "docs/releases").glob("v*.md")), "no release notes"
     assert list((ROOT / "infra/migrations").glob("*.sql")), "no migrations"
     guide = (ROOT / "docs/operator-guide.md").read_text()
