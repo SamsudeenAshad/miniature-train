@@ -11,6 +11,7 @@ Maintained per release. Current baseline: v0.25.0 (contracts and guides).
 - AIOps: `workers/aiops/` (telemetry, drift, detect, correlate, benchmark, capacity, topology, harness, iforest).
 - Recovery: `workers/executor/recovery.py`; policy `policies/quotas.yaml`, `policies/runbooks/`; executor RBAC.
 - Governance: `services/control-api/` (authz, audit, security, contracts, notify, incidents, outbox, canary, rollout, release); change-control, risks, acceptance decisions, DoD tracker.
+- Decisions: `docs/adr/` ADR-01..08 with pack summary in `docs/architecture.md`.
 - Infra: `infra/k8s/` (fleet), `infra/telemetry/` (collector, rules, alertmanager, dashboard, monitors), `infra/docker/` (pinned images), `restore.py`, `retention.py`, `health.py`.
 - Verification: `python -m pytest -q` (NFR-013) + `npm run check`/`build`; acceptance map `docs/acceptance-index.md`; status `docs/platform-status.md`.
 - Releases: notes in `docs/releases/`, tags `v0.1.0` onward; images advance per tag.
