@@ -13,14 +13,14 @@ policy writers; secrets by reference only; artifact signatures verified before l
 
 ## ADRs
 
-- ADR-001 modular monolith + isolated workers.
+- ADR-01 modular monolith + isolated workers.
 - ADR-02 Postgres job/outbox, no Kafka at pilot scale.
 - ADR-03 digests are release identity; aliases are pointers.
 - ADR-04 Git holds desired state; rollback reconciles Git.
-- ADR-005 deterministic rules stay beside the learned detector.
-- ADR-006 hypothesis ranking before causal models.
-- ADR-007 retrieval assistance optional and read-only.
-- ADR-008 DVC for reproducibility, Argo for scheduling.
+- ADR-05 deterministic rules stay beside the learned detector.
+- ADR-06 hypothesis ranking before causal models.
+- ADR-07 retrieval assistance optional and read-only.
+- ADR-08 DVC for reproducibility, Argo for scheduling.
 
 ## Data flow
 
