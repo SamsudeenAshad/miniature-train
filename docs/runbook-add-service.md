@@ -14,6 +14,7 @@
 10. Image built from `infra/docker/`; first-party tags advance uniformly.
 11. Local compose entry with healthcheck and healthy-only dependencies.
 12. New routes join the OpenAPI contract with parity tests (`test_openapi_parity.py`).
-13. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
+13. New architectural decisions ship as `docs/adr/` files; the pack summary stays current.
+14. Docs: `platform-status.md` (if pilot-grade), `evidence-index.md` baseline row.
 
 Run `python -m pytest -q` — the fleet sweeps catch every missed touchpoint.
