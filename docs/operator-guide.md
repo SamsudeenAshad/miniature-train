@@ -23,6 +23,7 @@ Console `http://localhost:8080`, control API `http://localhost:8000`.
 1. Seed demo: `python -m ml.data_generator --seed 42 --out data/demand.csv --manifest data/manifest.json`
 2. Validate: quarantine report must be `accepted` before training.
 3. Train/evaluate: check gates; blocked releases stay `proposed`; cards in `ml/cards.py`.
+4. Quotas: 2 concurrent tasks, 2 CPU/4Gi each (`policies/quotas.yaml`); training pauses during load tests.
 4. Predict: payloads over 10 KB are rejected with 422 before any model work.
 5. Migrations apply in filename order (`infra/migrate.py`); numbering must stay gapless.
 
