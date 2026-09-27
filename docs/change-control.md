@@ -32,5 +32,6 @@ Each entry: ID, proposer, reason, affected requirements, WBS/effort, security/da
 | CR-026 | 2026-09-27 | v0.24.0: docs true + API locked down (guides, roles, IDs) | accepted, tagged v0.24.0 |
 | CR-027 | 2026-09-27 | v0.25.0: contracts + guides (parity, conformance, runbook) | accepted, tagged v0.25.0 |
 | CR-028 | 2026-09-27 | v0.26.0: decisions + runbooks (ADRs, checklist, guides) | accepted, tagged v0.26.0 |
+| CR-029 | 2026-09-27 | v0.27.0: delivery correctness (CI tags, sweeps, proxy) | accepted, tagged v0.27.0 |
 
 Baseline is not rewritten to disguise failed experiments; new features require new CR rows.
