@@ -30,6 +30,8 @@
 
 ## CI
 
-`ci.yml` runs pytest, pip-audit, and the web checks/build. It clones with full
+`ci.yml` runs pytest, pip-audit, and the web gates (`check`, `test`, `typecheck`,
+`build`). It clones with full
 history (`fetch-depth: 0`) because the release↔tag parity tests need tags —
-a shallow clone fails them with zero tags present.
+a shallow clone fails them with zero tags present. Supply-chain audits
+(`pip-audit`, `npm audit`) run on every push; residuals need a documented home.
