@@ -30,5 +30,8 @@ for (const f of ["./nginx.conf", "./nginx.compose.conf"]) {
   for (const route of ["/api/control/", "/api/inference/"]) {
     if (!conf.includes(route)) throw new Error(`${f} missing route ${route}`);
   }
+  for (const bare of ["location = /api/control ", "location = /api/inference "]) {
+    if (!conf.includes(bare)) throw new Error(`${f} missing slashless redirect`);
+  }
 }
 console.log("web checks ok");
