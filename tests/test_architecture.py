@@ -9,3 +9,6 @@ def test_architecture_sections():
     doc = (ROOT / "docs/architecture.md").read_text()
     for h in ("Responsibilities", "Trust boundaries", "ADRs", "Data flow"):
         assert h in doc
+    for i in range(1, 9):
+        assert f"ADR-0{i}" in doc, f"ADR-0{i} missing from pack"
+        assert list((ROOT / "docs/adr").glob(f"ADR-00{i}-*.md")), f"ADR-00{i} file missing"
