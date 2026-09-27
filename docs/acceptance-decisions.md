@@ -19,5 +19,6 @@
 | v0.24.0 docs true + locked | pilot-accepted with limitations | 2026-09-27 | guides verified; roles denied; cluster pending |
 | v0.25.0 contracts + guides | pilot-accepted with limitations | 2026-09-27 | live conformance; runbook current; cluster pending |
 | v0.26.0 decisions + runbooks | pilot-accepted with limitations | 2026-09-27 | ADRs complete; checklist tested; cluster pending |
+| v0.27.0 delivery correctness | pilot-accepted with limitations | 2026-09-27 | CI fixed; proxy fixed; cluster pending |
 | 30-day 99.5% SLO | pending | — | assessed only after 30 days of valid probes |
 | R3 copilot | not selected | 2026-09-24 | tracked separately; core unaffected |
