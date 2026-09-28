@@ -14,3 +14,11 @@ def test_images_pinned_nonroot_runnable():
         assert "USER 65532:65532" in body
         assert "uvicorn" in body and "--app-dir" in body
         assert "services.control-api.app" not in body and "services.inference.app" not in body
+    api = (ROOT / "control-api.Dockerfile").read_text()
+    assert "COPY services/control-api services/control-api" in api
+    assert "COPY ml ml" in api
+    assert '"--app-dir", "services/control-api"' in api
+    inf = (ROOT / "inference.Dockerfile").read_text()
+    assert "COPY services/inference services/inference" in inf
+    assert "COPY ml ml" in inf
+    assert '"--app-dir", "services/inference"' in inf
