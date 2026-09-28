@@ -10,3 +10,4 @@ def test_web_multistage():
     assert df.startswith("FROM node:22-slim AS build")
     assert "nginxinc/nginx-unprivileged:1.27-alpine" in df
     assert "USER nginx" in df
+    assert "COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf" in df
