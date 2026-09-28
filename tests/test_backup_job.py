@@ -27,6 +27,7 @@ def test_job_cli_matches_cronjob():
     assert m.main(["--rpo-hours=12"])["rpo_hours"] == 12
     df = (ROOT / "infra/docker/backup.Dockerfile").read_text()
     assert "ENTRYPOINT" in df and "USER 65532" in df
+    assert "COPY infra/restore.py infra/restore.py" in df
 
 
 def test_entrypoint_runs_as_documented():
