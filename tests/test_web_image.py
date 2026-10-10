@@ -11,3 +11,6 @@ def test_web_multistage():
     assert "nginxinc/nginx-unprivileged:1.27-alpine" in df
     assert "USER nginx" in df
     assert "COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf" in df
+    assert "RUN npm run build" in df
+    assert "COPY --from=build /web/dist /usr/share/nginx/html" in df
+    assert "EXPOSE 8080" in df
