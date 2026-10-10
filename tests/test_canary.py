@@ -16,6 +16,14 @@ def _load(name: str, rel: str):
 canary = _load("canary", "services/control-api/canary.py")
 
 
+def test_stages_match_rollout_manifest():
+    import yaml
+
+    ro = yaml.safe_load((ROOT / "infra/k8s/rollout.yaml").read_text())
+    weights = [s["setWeight"] for s in ro["spec"]["strategy"]["canary"]["steps"] if "setWeight" in s]
+    assert list(canary.STAGES) == weights
+
+
 def test_interval_guards():
     assert canary.eval_interval(0, 50, 0.001, 100)["verdict"] == "insufficient"
     assert canary.eval_interval(2, 1000, 0.001, 100)["verdict"] == "pass"
