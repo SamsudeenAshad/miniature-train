@@ -15,3 +15,9 @@ def test_workflow_within_policy():
     assert res["requests"]["cpu"] == str(quotas["training_task_cpu"])
     assert res["requests"]["memory"] == f"{quotas['training_task_mem_gb']}Gi"
     assert wf["spec"]["activeDeadlineSeconds"] <= 7200
+
+
+def test_quota_keys_known():
+    quotas = yaml.safe_load((ROOT / "policies/quotas.yaml").read_text())
+    assert set(quotas) == {"version", "concurrent_training_tasks", "training_task_cpu",
+                           "training_task_mem_gb", "upload_mb", "project_objects_gb"}
