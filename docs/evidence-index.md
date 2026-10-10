@@ -1,6 +1,6 @@
 # Release evidence index (WBS 1.4/11.1)
 
-Maintained per release. Current baseline: v0.27.0 (delivery correctness).
+Maintained per release. Current baseline: v0.28.0 (telemetry contracts, decisions).
 
 - Git: `git log --format='%H %an %s'` — all steps by `samsudeenashad`, no co-author trailers.
 - Contracts: `packages/contracts/openapi-v1.yaml`, `inference-openapi.yaml`, `events/`, `schemas/`.
