@@ -55,3 +55,9 @@ def test_readme_documents_verification_command():
 
     latest = sorted((ROOT / "docs/releases").glob("v*.md"), key=_ver)[-1].stem
     assert f"Shipped through {latest}" in readme, latest
+
+
+def test_contributing_names_active_branches():
+    doc = (ROOT / "CONTRIBUTING.md").read_text()
+    assert "`dev/round2`" in doc
+    assert "dev/rolling" not in doc

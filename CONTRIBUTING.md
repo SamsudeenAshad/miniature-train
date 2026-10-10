@@ -9,7 +9,7 @@
   isolated; delete them (local and remote) right after merging.
 - After any direct-to-main commit (releases), merge `main` back into `dev/round2`
   before the next step so the branches can't drift.
-- Keep the branch list short: `main`, `dev/rolling`, and at most one active topic.
+- Keep the branch list short: `main`, `dev/round2`, and at most one active topic.
 
 ## Merging to main
 
