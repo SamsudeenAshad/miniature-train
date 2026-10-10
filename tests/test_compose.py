@@ -23,6 +23,7 @@ def test_compose_consistent():
     assert "nginx.compose.conf" in mounted
     for svc in ("control-api", "inference"):
         assert "healthcheck" in doc["services"][svc], svc
+        assert "/health/live" in " ".join(doc["services"][svc]["healthcheck"]["test"]), svc
     assert "healthcheck" in doc["services"]["web"]
     for svc in ("control-api", "inference", "web"):
         assert doc["services"][svc].get("restart") == "unless-stopped", svc
