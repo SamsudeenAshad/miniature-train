@@ -26,3 +26,9 @@ def test_images_pinned_nonroot_runnable():
     assert '"--app-dir", "services/inference"' in inf
     assert "EXPOSE 8000" in inf
     assert '"--port", "8000"' in inf
+
+
+def test_python_images_share_workdir():
+    for f in ("backup.Dockerfile", "control-api.Dockerfile", "executor.Dockerfile",
+              "inference.Dockerfile", "training.Dockerfile"):
+        assert "WORKDIR /srv" in (ROOT / f).read_text(), f
