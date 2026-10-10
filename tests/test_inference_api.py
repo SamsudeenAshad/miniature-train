@@ -48,6 +48,7 @@ def test_readiness_reflects_model():
     m = _load()
     m._model = None
     c = TestClient(m.app)
+    assert c.get("/health/live").json() == {"status": "alive"}
     assert c.get("/health/ready").json()["status"] == "warming"
 
 
