@@ -15,3 +15,6 @@ def test_virtual_service_matches_rollout():
     traffic = ro["spec"]["strategy"]["canary"]["trafficRouting"]["istio"]["virtualService"]
     assert traffic["name"] == "prediction-api"
     assert traffic["routes"] == ["primary"]
+    canary = ro["spec"]["strategy"]["canary"]
+    hosts = {d["destination"]["host"] for r in routes for d in r["route"]}
+    assert hosts == {canary["stableService"], canary["canaryService"]}, hosts
