@@ -20,3 +20,16 @@ def test_requirements_pinned():
     assert entries, "requirements.txt has no entries"
     for entry in entries:
         assert "==" in entry, entry
+
+
+def test_web_vite_pin_matches_notes():
+    import json
+    import re
+
+    pkg = json.loads((ROOT / "apps/web/package.json").read_text())
+    vite = pkg["devDependencies"]["vite"]
+    assert re.fullmatch(r"\d+\.\d+\.\d+", vite), vite
+    notes = (ROOT / "apps/web/SECURITY.md").read_text()
+    assert f"Vite pinned at {vite}" in notes, vite
+    lock = json.loads((ROOT / "apps/web/package-lock.json").read_text())
+    assert lock["packages"]["node_modules/vite"]["version"] == vite
