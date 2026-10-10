@@ -27,6 +27,11 @@ def test_handover_docs_present():
     for keyword in ("Idempotency-Key", "Location", "X-Subject", "action-policy", "anonymous",
                     "10 KB", "Quotas", "warming"):
         assert keyword in guide, keyword
+    import re as _re
+
+    section = guide.split("## ML lifecycle")[1].split("## ")[0]
+    nums = [int(m.group(1)) for m in _re.finditer(r"^(\d+)\. ", section, _re.M)]
+    assert nums == list(range(1, len(nums) + 1)), nums
     index = (ROOT / "docs/evidence-index.md").read_text()
     for path in ("infra/k8s/", "apps/web/", "docs/releases/", "infra/workflows/",
                  "ml/validate_cli.py", "infra/migrations/", "docs/adr/"):
