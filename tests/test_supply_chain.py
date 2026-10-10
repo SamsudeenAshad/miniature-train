@@ -9,3 +9,6 @@ def test_supply_chain_gates():
     doc = (ROOT / "docs/supply-chain.md").read_text()
     for gate in ("pip_audit", "npm audit", "test_image_tags"):
         assert gate in doc
+    web_notes = (ROOT / "apps/web/SECURITY.md").read_text()
+    for residual in ("esbuild", "vite", "source-map-js"):
+        assert residual in web_notes, residual
