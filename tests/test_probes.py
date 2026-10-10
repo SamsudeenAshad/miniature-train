@@ -22,3 +22,11 @@ def test_probes_present():
     for name in WANT:
         c = found[name]["spec"]["template"]["spec"]["containers"][0]
         assert "readinessProbe" in c and "livenessProbe" in c, name
+
+
+def test_api_probe_paths_match_app():
+    found = {name: d for name, d in _deployments()}
+    for name in ("control-api", "inference"):
+        c = found[name]["spec"]["template"]["spec"]["containers"][0]
+        assert c["readinessProbe"]["httpGet"]["path"] == "/health/ready", name
+        assert c["livenessProbe"]["httpGet"]["path"] == "/health/live", name
