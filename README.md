@@ -59,7 +59,7 @@ workflows run on the cluster profiles, not in compose.
 
 ## Status
 
-Shipped through v0.27.0: reproducible data → training → registry → HTTP services
+Shipped through v0.28.0: reproducible data → training → registry → HTTP services
 → canary delivery → AIOps → governed recovery, with manifests, console, and
 fleet-wide contract tests. See `docs/releases/` for per-release notes and
 `docs/platform-status.md` for what is proven vs pending a cluster.
