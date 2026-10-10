@@ -18,7 +18,11 @@ def test_images_pinned_nonroot_runnable():
     assert "COPY services/control-api services/control-api" in api
     assert "COPY ml ml" in api
     assert '"--app-dir", "services/control-api"' in api
+    assert "EXPOSE 8000" in api
+    assert '"--port", "8000"' in api
     inf = (ROOT / "inference.Dockerfile").read_text()
     assert "COPY services/inference services/inference" in inf
     assert "COPY ml ml" in inf
     assert '"--app-dir", "services/inference"' in inf
+    assert "EXPOSE 8000" in inf
+    assert '"--port", "8000"' in inf
