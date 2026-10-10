@@ -14,11 +14,16 @@ def _docs(name: str):
 def test_minio_creds_by_reference():
     es = next(d for d in _docs("object-store-secret.yaml") if d["kind"] == "ExternalSecret")
     assert es["spec"]["target"]["name"] == "object-store"
+    assert {e["secretKey"] for e in es["spec"]["data"]} >= {"root-user", "root-password"}
     sts = next(d for d in _docs("object-store.yaml") if d["kind"] == "StatefulSet")
     env = {e["name"]: e for e in sts["spec"]["template"]["spec"]["containers"][0]["env"]}
-    assert env["MINIO_ROOT_USER"]["valueFrom"]["secretKeyRef"]["name"] == "object-store"
+    assert env["MINIO_ROOT_USER"]["valueFrom"]["secretKeyRef"] == {"name": "object-store", "key": "root-user"}
+    assert env["MINIO_ROOT_PASSWORD"]["valueFrom"]["secretKeyRef"] == {"name": "object-store", "key": "root-password"}
     job = next(d for d in _docs("bucket-job.yaml") if d["kind"] == "Job")
     args = " ".join(job["spec"]["template"]["spec"]["containers"][0]["args"])
     assert "store/miniature-train/mlflow" in args
+    jenv = {e["name"]: e for e in job["spec"]["template"]["spec"]["containers"][0]["env"]}
+    assert jenv["MINIO_USER"]["valueFrom"]["secretKeyRef"] == {"name": "object-store", "key": "root-user"}
+    assert jenv["MINIO_PASSWORD"]["valueFrom"]["secretKeyRef"] == {"name": "object-store", "key": "root-password"}
     blob = (ROOT / "object-store.yaml").read_text() + (ROOT / "bucket-job.yaml").read_text()
     assert "password: " not in blob.lower().replace("root-password", "").replace("secretkeyref", "")
