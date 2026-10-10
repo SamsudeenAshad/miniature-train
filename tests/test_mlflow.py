@@ -13,5 +13,8 @@ def test_mlflow_pinned_and_served():
     c = dep["spec"]["template"]["spec"]["containers"][0]
     assert c["image"] == "ghcr.io/mlflow/mlflow:v2.16.0"
     assert any("s3://miniature-train/mlflow" in a for a in c["args"])
+    assert any("sqlite://" in a for a in c["args"])
+    pod = dep["spec"]["template"]["spec"]
+    assert any(v.get("emptyDir") is not None for v in pod["volumes"])
     svc = next(d for d in docs if d["kind"] == "Service")
     assert svc["spec"]["selector"] == {"app": "mlflow"}
