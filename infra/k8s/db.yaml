@@ -35,6 +35,8 @@ spec:
             - name: POSTGRES_DB
               value: mt
             - name: POSTGRES_USER
+              value: mt
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: control-api
