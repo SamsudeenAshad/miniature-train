@@ -39,6 +39,14 @@ def test_timing_comes_from_policy():
     assert rec.COOLDOWN_S == doc["cooldown_s"] == 900
 
 
+def test_every_policy_key_consumed():
+    doc = yaml.safe_load((ROOT / "policies/action-policy.yaml").read_text())
+    for key, value in doc.items():
+        if key == "version":
+            continue
+        assert getattr(rec, key.upper(), None) == int(value), key
+
+
 def test_idempotent_no_duplicate_side_effects():
     reset()
     plan = dry_run("restart-replica", "staging", {"replica": "a"})
