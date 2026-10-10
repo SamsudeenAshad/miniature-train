@@ -32,3 +32,11 @@ def test_python_images_share_workdir():
     for f in ("backup.Dockerfile", "control-api.Dockerfile", "executor.Dockerfile",
               "inference.Dockerfile", "training.Dockerfile"):
         assert "WORKDIR /srv" in (ROOT / f).read_text(), f
+
+
+def test_pip_images_install_pinned_requirements():
+    for f in ("control-api.Dockerfile", "executor.Dockerfile",
+              "inference.Dockerfile", "training.Dockerfile"):
+        body = (ROOT / f).read_text()
+        assert "COPY requirements.txt ." in body, f
+        assert "RUN pip install --no-cache-dir -r requirements.txt" in body, f
