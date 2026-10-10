@@ -12,3 +12,8 @@ def test_job_bounds():
     assert job["spec"]["backoffLimit"] == 3
     assert job["spec"]["ttlSecondsAfterFinished"] == 3600
     assert job["spec"]["activeDeadlineSeconds"] == 300
+    cj = yaml.safe_load((ROOT / "backup-cronjob.yaml").read_text())
+    spawned = cj["spec"]["jobTemplate"]["spec"]
+    assert spawned["backoffLimit"] == 3
+    assert spawned["ttlSecondsAfterFinished"] == 3600
+    assert spawned["activeDeadlineSeconds"] == 300
