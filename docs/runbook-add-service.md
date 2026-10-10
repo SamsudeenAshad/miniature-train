@@ -8,7 +8,7 @@
    (`test_configmap_refs.py`); selectors must resolve (`test_selectors.py`).
 5. NetworkPolicy egress: add the Service port or the sweep fails.
 6. Stateful data syncs on wave `0` via `sync-wave` annotation; apps default to wave `1`.
-7. Disruption budgets: replicas get `minAvailable`, singletons get `maxUnavailable: 0`.
+7. Disruption budgets cover serving and stateful singletons: replicas get `minAvailable`, control-api/db/object-store get `maxUnavailable: 0` (`test_pdb.py` pins the set; observability and console stay uncovered as pilot scope).
 8. New tables ship as sequenced migrations in `infra/migrations/` (gapless numbering tested).
 9. Metrics need a ServiceMonitor with the NFR-003 30s interval to be scraped.
 10. Image built from `infra/docker/`; first-party tags advance uniformly.

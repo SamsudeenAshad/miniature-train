@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1] / "infra/k8s"
 def test_pdb_matches_inference():
     docs = list(yaml.safe_load_all((ROOT / "pdb.yaml").read_text()))
     by_name = {d["metadata"]["name"]: d for d in docs}
+    assert set(by_name) == {"inference", "control-api", "db", "object-store"}, set(by_name)
     assert by_name["inference"]["spec"]["minAvailable"] == 1
     assert by_name["control-api"]["spec"]["maxUnavailable"] == 0
     for singleton in ("db", "object-store"):
