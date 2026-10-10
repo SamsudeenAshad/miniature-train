@@ -18,3 +18,7 @@ def test_rollout_steps_match_policy():
     at = yaml.safe_load((ROOT / "analysistemplate.yaml").read_text())
     names = {m["name"] for m in at["spec"]["metrics"]}
     assert {"error-rate", "p95-latency"} <= names
+    required_args = {a["name"] for a in at["spec"]["args"]}
+    provided_args = {a["name"] for s in ro["spec"]["strategy"]["canary"]["steps"]
+                     if "analysis" in s for a in s["analysis"].get("args", [])}
+    assert required_args <= provided_args, (required_args, provided_args)
