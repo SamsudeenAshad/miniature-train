@@ -42,3 +42,11 @@ def test_readme_documents_verification_command():
         assert cmd in readme, cmd
     assert "docker compose" in readme and "POSTGRES_PASSWORD" in readme
     assert "Local scope" in readme
+    import re
+
+    def _ver(f):
+        m = re.fullmatch(r"v(\d+)\.(\d+)\.(\d+)\.md", f.name)
+        return tuple(int(x) for x in m.groups())
+
+    latest = sorted((ROOT / "docs/releases").glob("v*.md"), key=_ver)[-1].stem
+    assert f"Shipped through {latest}" in readme, latest
