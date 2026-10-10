@@ -28,5 +28,8 @@ def test_api_probe_paths_match_app():
     found = {name: d for name, d in _deployments()}
     for name in ("control-api", "inference"):
         c = found[name]["spec"]["template"]["spec"]["containers"][0]
-        assert c["readinessProbe"]["httpGet"]["path"] == "/health/ready", name
-        assert c["livenessProbe"]["httpGet"]["path"] == "/health/live", name
+        assert c["readinessProbe"]["httpGet"] == {"path": "/health/ready", "port": 8000}, name
+        assert c["livenessProbe"]["httpGet"] == {"path": "/health/live", "port": 8000}, name
+    console = found["console"]["spec"]["template"]["spec"]["containers"][0]
+    assert console["readinessProbe"]["httpGet"] == {"path": "/", "port": 8080}
+    assert console["livenessProbe"]["httpGet"] == {"path": "/", "port": 8080}
