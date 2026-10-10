@@ -3,4 +3,3 @@ version: v1
 approval_ttl_s: 900
 evidence_ttl_s: 120
 cooldown_s: 900
-max_auto_canary_aborts: 1
