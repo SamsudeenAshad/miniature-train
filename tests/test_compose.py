@@ -12,6 +12,11 @@ def test_compose_consistent():
     api = doc["services"]["control-api"]["build"]
     assert api["context"] == ".."
     assert (ROOT / api["dockerfile"]).exists()
+    for name, svc in doc["services"].items():
+        build = svc.get("build")
+        if build:
+            assert build["context"] == "..", name
+            assert (ROOT / build["dockerfile"]).exists(), name
     blob = (ROOT / "infra/docker-compose.yml").read_text()
     assert "POSTGRES_PASSWORD=mt" not in blob
     assert doc["services"]["db"]["image"] == "postgres:16.4"
