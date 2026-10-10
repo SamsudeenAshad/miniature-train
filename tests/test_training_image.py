@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_training_image_matches_workflow():
     df = (ROOT / "infra/docker/training.Dockerfile").read_text()
     assert df.startswith("FROM python:3.13-slim")
+    assert "USER 65532:65532" in df
     assert 'ENTRYPOINT ["python", "-m", "workers.training.runner"]' in df
     assert "COPY workers/training workers/training" in df
     assert "COPY ml ml" in df
