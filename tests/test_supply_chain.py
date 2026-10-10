@@ -12,3 +12,11 @@ def test_supply_chain_gates():
     web_notes = (ROOT / "apps/web/SECURITY.md").read_text()
     for residual in ("esbuild", "vite", "source-map-js"):
         assert residual in web_notes, residual
+
+
+def test_requirements_pinned():
+    lines = (ROOT / "requirements.txt").read_text().splitlines()
+    entries = [ln.strip() for ln in lines if ln.strip() and not ln.strip().startswith("#")]
+    assert entries, "requirements.txt has no entries"
+    for entry in entries:
+        assert "==" in entry, entry
